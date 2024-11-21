@@ -37,25 +37,26 @@ header .logo img {
 
 .login-container {
     background-color: #fffdfd;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .login-container h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-left: 175px;
 }
 
 .login-container input {
     width: 80%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .login-container button {
-    width: 50%;
+    width: 30%;
     padding: 13px;
     font-size: 1rem;
     background-color: #e0473f;
@@ -63,7 +64,8 @@ header .logo img {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 95px;
+    margin-left: 150px;
+    margin-top: 10px;
 }
 
 .login-container button:hover {
