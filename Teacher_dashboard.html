@@ -5,13 +5,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Teacher Dashboard</title>
+        <title>Attendance Dashboard</title>
         <link rel="icon" type="image/x-icon" href="">
         <link rel="stylesheet" href="style.css">
                                         
     </head>
     <body>
-        <h2 class="title">Teacher Dashboard</h2>
+        <h2 class="title">Principal Dashboard</h2>
     </body>
 
 <header>
@@ -23,11 +23,15 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">Features</a>
                 <ul>
-                    <li><a href="#" target="_blank">Edit attendance</a>
-                        <a href="#" target="_blank">View attendance history</a>>
+                    <li><a href="Edit_attendance.html" target="_blank">Edit student attendance</a>
+                        <a href="#" target="_blank">View attendance history</a>
                     </li>
                 </ul>
             </li>
         </ul>
+        <form action = "logout.php" method = "POST" class = "logout-form">
+            <button type = "submit" class = "logout-button">Logout</button>
+        </form>
     </nav>
 </header>
+</html>
