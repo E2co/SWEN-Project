@@ -1,21 +1,24 @@
 <?php
 session_start();
 
-//Sample user data for testing
-$users = [
-    ['username' => 'teacher', 'password' => '123', 'role' => 'Teacher'],
-    ['username' => 'principal', 'password' => 'principal123', 'role' => 'Principal'],
-    ['username' => 'dean', 'password' => 'dean123', 'role' => 'Dean'],
-    ['username' => '123', 'password' => '123', 'role' => 'Prefect'],
-    ['username' => '123', 'password' => '123', 'role' => 'Security']
-];
+$conn = new mysqli('localhost', 'root', '', 'school_db');
+
+if($conn -> connect_error){
+    die("Connection failed: " . $conn -> connect_error);
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $username = $_POST['username'];
+    $username = $conn -> real_escape_string($_POST['username']);
     $password = $_POST['password'];
 
-    foreach($users as $user){
-        if($user['username'] === $username && $user['password'] === $password){
+    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $result = $conn -> query($sql);
+
+    if($result -> num_rows === 1){
+        $user = $result -> fetch_assoc();
+    
+        //if(password_verify($password, $user['password'])){
+            if($password === $user['password']){
             $_SESSION['role'] = $user['role'];
             $_SESSION['username'] = $username;
 
@@ -36,10 +39,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     header('Location: Presec_dashboard.html');
                     exit();
             }
+        } else {
+            header('Location: login.php?error=invalid_credentials');
+            exit();
         }
-    }
+    } //else {
+        //header('Location: login.php?error=user_not_found');
+        //exit();
+    //}
 
-    header('Location: login.php?error=invalid_credentials');
-    exit();
+    $conn -> close();
 }
 ?>
