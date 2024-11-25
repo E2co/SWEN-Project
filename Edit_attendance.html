@@ -11,8 +11,18 @@
 </head>
 
 <body>
-    <h2 class="title">Principal Dashboard</h2>
-    <button type = "submit" class = "CLASS-button">CLASS</button>
+    <h2 class="title">Attendance Register</h2>
+    <button type = "submit" class = "CLASS-button" id = "classButton">CLASS</button>
+    <table classid = "attendanceRegister" style = "display: none;">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Present</th>
+                <th>Absent</th>
+            </tr>
+        </thead>
+        <tbody id = "studentList"></tbody>
+    </table>
 </body>
 
 <header>
@@ -20,10 +30,11 @@
         <img src="logo-.png" alt="school-logo">
     </div>
     <nav class="navbar">
-        <form action = "back_teacher.php" method = "POST" class = "logout-form">
-            <button type = "submit" class = "logout-button">Back</button>
+        <form action = "back_teacher.php" method = "POST" class = "back">
+            <button type = "submit" class = "back-button">Back</button>
         </form>
     </nav>
 </header>
 
+<script src = "edit_attendance.js"></script>
 </html>
