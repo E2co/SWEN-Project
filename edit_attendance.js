@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('classButton').addEventListener('click', function() {
-
         //const classbutton = document.getElementById("classButton");
         //classbutton.style.display = "none";
         const attendanceTable = document.getElementById("attendanceRegister");
