@@ -58,7 +58,7 @@ header .logo img {
 }
 
 .back{
-  margin-left: 1100px;
+  margin-left: 1150px;
 }
 
 .back-button{
@@ -89,44 +89,33 @@ header .logo img {
   background-color: #e30909;
 }
 
-.attendanceTable{
-  margin-top: 150px;
-}
-
 .attendanceRegister{
-  width: 80%;
+  margin-top: 75px;
+  margin-left: 200px;
+}
+
+table, th, td{
+  border: 1px solid #000000;
   border-collapse: collapse;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 55%;
 }
 
-.attendanceRegister th,
-.attendanceRegister td{
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-.attendanceRegister th{
-  background-color: #f2f2f2;
-  color: #333;
-}
-
-.present-checkbox,
-.absent-checkbox{
-  cursor: pointer;
+th, td{
+  padding: 5px;
 }
 
 .submit-button{
-  background-color: #FF4C4C;
+  background-color: #457ff3;
   color: white;
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   font-size: 1rem;
   border-radius: 5px;
-  margin-top: 1300px;
+  margin-top: 1250px;
+  margin-left: 75px;
 }
 
 .submit-button:hover{
-  background-color: #e30909;
+  background-color: #295bc0;
 }
