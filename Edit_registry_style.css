@@ -34,6 +34,7 @@ body{
     cursor: pointer;
     font-size: 1rem;
     border-radius: 5px;
+    text-decoration: none;
   }
 
 .select-containter input {
@@ -74,6 +75,8 @@ header .logo img {
 
 .navbar{
   margin-right: 950px;
+  justify-content: space-between
+  ;
 }
 
 header .navbar ul{
@@ -130,10 +133,11 @@ header .navbar ul li:hover > ul{
   background-color: #FF4C4C;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 1rem;
   border-radius: 5px;
+  
 }
 
 .logout-button:hover{
