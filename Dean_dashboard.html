@@ -1,64 +1,60 @@
 <!DOCTYPE html>
-    
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dean Dashboard</title>
-        <link rel="icon" type="image/x-icon" href="">
-        <link rel="stylesheet" href="style.css">
-                                        
-    </head>
-    <body>
-        <h2 class="title">Dean Dashboard</h2>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Added jQuery for AJAX functionality -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo-.png" alt="school-logo">
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a>
+                    <ul>
+                        <li><a href="Edit_registry_dean.html" target="_self">Edit/Remove student</a></li>
+                        <li><a href="#" target="_blank">View attendance history</a></li>
+                        <li><a href="#" target="_blank">Edit notification message</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form action="logout.php" method="POST" class="logout-form">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </nav>
+    </header>
 
-<header>
-    <div class = "logo">
-        <img src="logo-.png" alt="school-logo">
+    <h2 class="title">Dean Dashboard</h2>
+
+    <!-- New Section for Notifications -->
+    <div id="notifications">
+        <!-- Notifications will be loaded dynamically here -->
     </div>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Features</a>
-                <ul>
-                    <li><a href="Edit_registry_dean.html" target="_self">Edit/Remove student</a>
-                        <a href="#" target="_blank">View attendance history</a>
-                        <a href="#" target="_blank">Edit notification message</a> 
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <form action = "logout.php" method = "POST" class = "logout-form">
-            <button type = "submit" class = "logout-button">Logout</button>
-        </form>
-    </nav>
-</header>
+    <!-- End of New Section -->
 
+    <!-- Added script to fetch notifications via AJAX -->
+    <script>
+        $(document).ready(function() {
+            // Fetch notifications from notification.php
+            $.ajax({
+                url: 'notification.php', // PHP script to fetch notifications
+                method: 'GET',
+                success: function(response) {
+                    // Insert fetched notifications into the #notifications section
+                    $('#notifications').html(response);
+                },
+                error: function() {
+                    console.error("Error fetching notifications.");
+                }
+            });
+        });
+    </script>
 
-<section class="notifications">
-    <h3>Pending Absence Notifications</h3>
-
-    <!-- Form to Edit Notification Message -->
-    <form action="notification.php" method="POST">
-        <label for="message">Edit Notification Message:</label><br>
-        <textarea name="message" id="message" rows="4" cols="50"><?php echo isset($_SESSION['notification_message']) ? $_SESSION['notification_message'] : ''; ?></textarea><br><br>
-        <input type="submit" value="Update Notification">
-    </form>
-
-    <!-- Display Pending Absences Notifications -->
-    <h4>Pending Absences</h4>
-    <?php
-        // Displaying pending absences from the student_attendance table
-        if ($pendingNotifications) {
-            foreach ($pendingNotifications as $notification) {
-                echo "<p>Student: " . $notification['name'] . " - Absence Date: " . $notification['date'] . "</p>";
-            }
-        } else {
-            echo "<p>No pending absences.</p>";
-        }
-    ?>
-</section>
 </body>
 </html>

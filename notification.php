@@ -1,32 +1,31 @@
 <?php
-session_start();
+// Database connection details
+$servername = "localhost"; // Replace with your MySQL server address if different
+$username = "root";        // Replace with your MySQL username (default is root)
+$password = "";            // Replace with your MySQL password (default is empty for XAMPP)
+$dbname = "school_db";     // The name of the database you want to use
 
-$host = '127.0.0.1'; 
-$username = 'root';   
-$password = '';       
-$dbname = 'school_db'; 
+// Create a connection to the database
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-$conn = new mysqli($host, $username, $password, $dbname);
-
+// Check if the connection was successful
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['message'])) {
-    $message = $_POST['message'];
 
-    // Store the message in the session to be used later on the dashboard
-    $_SESSION['notification_message'] = $message;
-}
-$query = "SELECT students.name, student_attendance.date FROM student_attendance 
-          INNER JOIN students ON student_attendance.id = students.id 
-          WHERE student_attendance.status = 'absent'";  // Fetch all absences
-$result = $conn->query($query);
+// Query the student_attendance table
+$sql = "SELECT * FROM student_attendance"; // Replace with your desired query
+$result = $conn->query($sql);
 
-$pendingNotifications = [];
+// Check if there are results and display them
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $pendingNotifications[] = $row;
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Correctly access the fields that exist in the table
+        echo "ID: " . $row["id"] . " - Status: " . $row["status"] . " - Date: " . $row["date"] . "<br>";
     }
+} else {
+    echo "No results found.";
 }
 
 // Close the database connection
