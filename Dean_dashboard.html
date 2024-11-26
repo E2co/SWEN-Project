@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Added jQuery for AJAX functionality -->
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="notification.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -32,29 +33,29 @@
 
     <h2 class="title">Dean Dashboard</h2>
 
-    <!-- New Section for Notifications -->
     <div id="notifications">
         <!-- Notifications will be loaded dynamically here -->
     </div>
-    <!-- End of New Section -->
 
-    <!-- Added script to fetch notifications via AJAX -->
     <script>
-        $(document).ready(function() {
-            // Fetch notifications from notification.php
+        $(document).ready(function () {
+            
             $.ajax({
-                url: 'notification.php', // PHP script to fetch notifications
+                url: 'notification.php', 
                 method: 'GET',
-                success: function(response) {
-                    // Insert fetched notifications into the #notifications section
-                    $('#notifications').html(response);
+                success: function (response) {
+                    
+                    $('#notifications').html('<div class="notification-box"><textarea class="notification-msg">' + response + '</textarea><button class="close-btn">×</button></div>');
                 },
-                error: function() {
+                error: function () {
                     console.error("Error fetching notifications.");
                 }
             });
+
+            $(document).on('click', '.close-btn', function () {
+                $(this).parent('.notification-box').remove();
+            });
         });
     </script>
-
 </body>
 </html>

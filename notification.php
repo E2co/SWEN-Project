@@ -1,33 +1,44 @@
 <?php
-// Database connection details
-$servername = "localhost"; // Replace with your MySQL server address if different
-$username = "root";        // Replace with your MySQL username (default is root)
-$password = "";            // Replace with your MySQL password (default is empty for XAMPP)
-$dbname = "school_db";     // The name of the database you want to use
 
-// Create a connection to the database
+$servername = "localhost"; 
+$username = "root";       
+$password = "";            
+$dbname = "school_db";     
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check if the connection was successful
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query the student_attendance table
-$sql = "SELECT * FROM student_attendance"; // Replace with your desired query
+$sql = "
+    SELECT s.id, s.name
+    FROM (
+        SELECT sa1.id, sa1.date AS date1, sa2.date AS date2, sa3.date AS date3
+        FROM student_attendance sa1
+        JOIN student_attendance sa2 ON sa1.id = sa2.id AND sa2.date = DATE_ADD(sa1.date, INTERVAL 1 DAY)
+        JOIN student_attendance sa3 ON sa1.id = sa3.id AND sa3.date = DATE_ADD(sa2.date, INTERVAL 1 DAY)
+        WHERE sa1.status = 'absent' AND sa2.status = 'absent' AND sa3.status = 'absent'
+    ) AS consecutive_absences
+    JOIN students s ON s.id = consecutive_absences.id
+    GROUP BY s.id, s.name
+";
+
 $result = $conn->query($sql);
 
-// Check if there are results and display them
 if ($result->num_rows > 0) {
-    // Output data of each row
-    while($row = $result->fetch_assoc()) {
-        // Correctly access the fields that exist in the table
-        echo "ID: " . $row["id"] . " - Status: " . $row["status"] . " - Date: " . $row["date"] . "<br>";
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="notification">';
+        echo 'Student ID: ' . $row["id"] . ' - Name: ' . $row["name"] . ' has been absent for 3 consecutive days.';
+        echo '<button class="close-btn">&times;</button>';
+        echo '</div>';
     }
 } else {
-    echo "No results found.";
+    echo '<div class="notification">No students with 3 consecutive absences found.';
+    echo '<button class="close-btn">&times;</button>';
+    echo '</div>';
 }
 
-// Close the database connection
 $conn->close();
 ?>
