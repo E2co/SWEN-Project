@@ -18,7 +18,7 @@ if(!$attendanceData || !is_array($attendanceData)){
     exit;
 }
 
-$sql = "INSERT INTO student_attendance (id, status, date) VALUES (?, ?, CURDATE()) ON DUPLICATE KEY UPDATE status = VALUES(status)";
+$sql = "INSERT INTO student_attendance (student_id, status, date) VALUES (?, ?, CURDATE()) ON DUPLICATE KEY UPDATE status = VALUES(status)";
 
 $stmt = $conn->prepare($sql);
 
@@ -27,17 +27,26 @@ if(!$stmt){
     exit;
 }
 
-foreach($attendanceData as $studentId => $status){
-    $stmt->bind_param("is", $studentId, $status);
+$conn->begin_transaction();
 
-    if(!$stmt->execute()){
-        echo json_encode(["success" => false, "error" => "Failed to update attendance for student ID: $studentId"]);
-        exit;
-    }
+try{
+    foreach($attendanceData as $studentId => $status){
+        $stmt->bind_param("is", $studentId, $status);
+    
+        if(!$stmt->execute()){
+            $conn->rollback();
+            echo json_encode(["success" => false, "error" => "Failed to update attendance for student ID: $studentId"]);
+            exit;
+        }
+    }    
+
+    $conn->commit();
+    echo json_encode(["success" => true, "message" => "Attendance updated successfully"]);
+} catch(Exception $e) {
+    $conn->rollback();
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
 
 $stmt->close();
 $conn->close();
-
-echo json_encode(["success" => true, "message" => "Attendance updated successfully"]);
 ?>
