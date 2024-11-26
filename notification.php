@@ -1,34 +1,44 @@
 <?php
-session_start();
 
-$host = '127.0.0.1'; 
-$username = 'root';   
-$password = '';       
-$dbname = 'school_db'; 
+$servername = "localhost"; 
+$username = "root";       
+$password = "";            
+$dbname = "school_db";     
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['message'])) {
-    $message = $_POST['message'];
 
-    // Store the message in the session to be used later on the dashboard
-    $_SESSION['notification_message'] = $message;
-}
-$query = "SELECT students.name, student_attendance.date FROM student_attendance 
-          INNER JOIN students ON student_attendance.id = students.id 
-          WHERE student_attendance.status = 'absent'";  // Fetch all absences
-$result = $conn->query($query);
+$sql = "
+    SELECT s.id, s.name
+    FROM (
+        SELECT sa1.id, sa1.date AS date1, sa2.date AS date2, sa3.date AS date3
+        FROM student_attendance sa1
+        JOIN student_attendance sa2 ON sa1.id = sa2.id AND sa2.date = DATE_ADD(sa1.date, INTERVAL 1 DAY)
+        JOIN student_attendance sa3 ON sa1.id = sa3.id AND sa3.date = DATE_ADD(sa2.date, INTERVAL 1 DAY)
+        WHERE sa1.status = 'absent' AND sa2.status = 'absent' AND sa3.status = 'absent'
+    ) AS consecutive_absences
+    JOIN students s ON s.id = consecutive_absences.id
+    GROUP BY s.id, s.name
+";
 
-$pendingNotifications = [];
+$result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $pendingNotifications[] = $row;
+        echo '<div class="notification">';
+        echo 'Student ID: ' . $row["id"] . ' - Name: ' . $row["name"] . ' has been absent for 3 consecutive days.';
+        echo '<button class="close-btn">&times;</button>';
+        echo '</div>';
     }
+} else {
+    echo '<div class="notification">No students with 3 consecutive absences found.';
+    echo '<button class="close-btn">&times;</button>';
+    echo '</div>';
 }
 
-// Close the database connection
 $conn->close();
 ?>

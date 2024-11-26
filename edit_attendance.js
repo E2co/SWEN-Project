@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('classButton').addEventListener('click', function() {
-        const classbutton = document.getElementById("classButton");
-        classbutton.style.display = "none";
+    const classbutton = document.getElementById("classButton");
+    const submitbutton = document.getElementById("submitButton");
+    const attendanceTable = document.getElementById("attendanceRegister");
 
-        const submitbutton = document.getElementById("submitButton");
-        submitbutton.style.display = "flex";
-        
-        const attendanceTable = document.getElementById("attendanceRegister");
+    classbutton.addEventListener('click', function() {
+        classbutton.style.display = "none";
+        submitbutton.style.display = "grid";
         attendanceTable.style.display = 'table';
 
         fetch('get_student.php')
@@ -55,29 +54,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             });
-            //.catch(error => {
-            //    console.error('Error fetching student data: ', error);
-            //});
     });
 
-    document.getElementById('submitButton').addEventListener('click', function() {
+    submitbutton.addEventListener('click', function() {
         const attendanceData = {};
         const checkboxes = document.querySelectorAll('.present-checkbox, .absent-checkbox');
 
         checkboxes.forEach(checkbox => {
             const studentId = checkbox.name.split('_')[1];
-            if(checkbox.classList.contains('present-checkbox') && checkbox.checked){
-                attendanceData[studentId] = 'present';
-            } else if(checkbox.classList.contains('absent-checkbox') && checkbox.checked){
-                attendanceData[studentId] = 'absent';
+            if(checkbox.checked){
+                attendanceData[studentId] = checkbox.classList.contains('present-checkbox') ? 'present' : 'absent';
             }
         });
 
         fetch('updt_stdnt_attendance.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(attendanceData)
         })
         .then(response => {
@@ -87,10 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log('Attendance updated successfully: ', data);
+            alert('Attendance updated successfully!')
+            console.log('Server response:', data);
+
+            classbutton.style.display = 'block';
+            submitbutton.style.display = 'none';
+            attendanceTable.style.display = 'none';
         })
         .catch(error => {
             console.error('Error updating attendance: ', error);
         });
-    });
+    }); 
 });

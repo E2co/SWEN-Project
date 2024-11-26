@@ -1,5 +1,4 @@
 
-USE school_db;
 
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
@@ -9,6 +8,14 @@ USE school_db;
 -- Generation Time: Nov 26, 2024 at 03:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
+DROP DATABASE IF EXISTS school_db;
+CREATE DATABASE school_db;
+USE school_db;
+
+
+--
+-- Table structure for table `school`
+--
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
