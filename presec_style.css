@@ -123,17 +123,20 @@ header .navbar ul li:hover > ul{
 
 .attendance-form {
     background-color: #fffdfd;
-    padding: 35px;
+    padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    margin-top: 20px;
 }
 
 .attendance-form h2 {
-    margin-top: 25px;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .attendance-form input {
-    width: 80%;
+    width: 65%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -150,7 +153,7 @@ header .navbar ul li:hover > ul{
     border-radius: 5px;
     cursor: pointer;
     margin-left: 95px;
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 .attendance-form button:hover {

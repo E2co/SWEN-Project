@@ -12,17 +12,20 @@
 
 <body>
     <h2 class="title">Attendance Register</h2>
+    <div class = "attendanceTable">
+        <table class= "attendanceRegister" id = "attendanceRegister" style = "display: none;">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody id = "studentList"></tbody>
+        </table>
+    </div>
     <button type = "submit" class = "CLASS-button" id = "classButton">CLASS</button>
-    <table classid = "attendanceRegister" style = "display: none;">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Present</th>
-                <th>Absent</th>
-            </tr>
-        </thead>
-        <tbody id = "studentList"></tbody>
-    </table>
+    <button type = "submit" class = "submit-button" id = "submitButton" style = "display: none;">Submit</button>
 </body>
 
 <header>

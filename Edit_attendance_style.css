@@ -57,11 +57,11 @@ header .logo img {
   margin-right: 950px;
 }
 
-.logout-form{
+.back{
   margin-left: 1150px;
 }
 
-.logout-button{
+.back-button{
   background-color: #FF4C4C;
   color: white;
   border: none;
@@ -71,13 +71,51 @@ header .logo img {
   border-radius: 5px;
 }
 
-.logout-button:hover{
+.back-button:hover{
   background-color: #e30909;
 }
 
-.overlay{
-  display: none;
-  position: fixed;
-  top: 0;
-  
+.CLASS-button{
+  background-color: #FF4C4C;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.CLASS-button:hover{
+  background-color: #e30909;
+}
+
+.attendanceRegister{
+  margin-top: 75px;
+  margin-left: 200px;
+}
+
+table, th, td{
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  width: 55%;
+}
+
+th, td{
+  padding: 5px;
+}
+
+.submit-button{
+  background-color: #457ff3;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-top: 1250px;
+  margin-left: 75px;
+}
+
+.submit-button:hover{
+  background-color: #295bc0;
 }

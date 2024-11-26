@@ -35,4 +35,30 @@
         </form>
     </nav>
 </header>
+
+
+<section class="notifications">
+    <h3>Pending Absence Notifications</h3>
+
+    <!-- Form to Edit Notification Message -->
+    <form action="notification.php" method="POST">
+        <label for="message">Edit Notification Message:</label><br>
+        <textarea name="message" id="message" rows="4" cols="50"><?php echo isset($_SESSION['notification_message']) ? $_SESSION['notification_message'] : ''; ?></textarea><br><br>
+        <input type="submit" value="Update Notification">
+    </form>
+
+    <!-- Display Pending Absences Notifications -->
+    <h4>Pending Absences</h4>
+    <?php
+        // Displaying pending absences from the student_attendance table
+        if ($pendingNotifications) {
+            foreach ($pendingNotifications as $notification) {
+                echo "<p>Student: " . $notification['name'] . " - Absence Date: " . $notification['date'] . "</p>";
+            }
+        } else {
+            echo "<p>No pending absences.</p>";
+        }
+    ?>
+</section>
+</body>
 </html>

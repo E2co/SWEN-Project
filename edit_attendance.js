@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('classButton').addEventListener('click', function() {
-        //const classbutton = document.getElementById("classButton");
-        //classbutton.style.display = "none";
+        const classbutton = document.getElementById("classButton");
+        classbutton.style.display = "none";
+
+        const submitbutton = document.getElementById("submitButton");
+        submitbutton.style.display = "flex";
+        
         const attendanceTable = document.getElementById("attendanceRegister");
-        attendanceTable.style.display = "table";
+        attendanceTable.style.display = 'table';
 
         fetch('get_student.php')
             .then(response => {
@@ -55,5 +59,38 @@ document.addEventListener('DOMContentLoaded', function() {
             //    console.error('Error fetching student data: ', error);
             //});
     });
+
+    document.getElementById('submitButton').addEventListener('click', function() {
+        const attendanceData = {};
+        const checkboxes = document.querySelectorAll('.present-checkbox, .absent-checkbox');
+
+        checkboxes.forEach(checkbox => {
+            const studentId = checkbox.name.split('_')[1];
+            if(checkbox.classList.contains('present-checkbox') && checkbox.checked){
+                attendanceData[studentId] = 'present';
+            } else if(checkbox.classList.contains('absent-checkbox') && checkbox.checked){
+                attendanceData[studentId] = 'absent';
+            }
+        });
+
+        fetch('updt_stdnt_attendance.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(attendanceData)
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new Error("Failed to update attendance");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Attendance updated successfully: ', data);
+        })
+        .catch(error => {
+            console.error('Error updating attendance: ', error);
+        });
+    });
 });
-    

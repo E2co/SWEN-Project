@@ -1,9 +1,12 @@
+
+USE school_db;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2024 at 12:38 AM
+-- Generation Time: Nov 26, 2024 at 03:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,6 +94,25 @@ INSERT INTO `students` (`id`, `name`, `grade`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_attendance`
+--
+
+CREATE TABLE `student_attendance` (
+  `id` int(11) NOT NULL,
+  `status` enum('present','absent') NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_attendance`
+--
+
+INSERT INTO `student_attendance` (`id`, `status`, `date`) VALUES
+(5001, 'present', '2024-11-25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -129,6 +151,13 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `school_db_date` (`date`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -150,6 +179,12 @@ ALTER TABLE `parents_contact`
 --
 ALTER TABLE `students`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5016;
+
+--
+-- AUTO_INCREMENT for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5002;
 
 --
 -- AUTO_INCREMENT for table `users`
