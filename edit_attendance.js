@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('classButton').addEventListener('click', function() {
-        const classbutton = document.getElementById("classButton");
+    const classbutton = document.getElementById("classButton");
+    const submitbutton = document.getElementById("submitButton");
+    const attendanceTable = document.getElementById("attendanceRegister");
+    const studentList = document.getElementById("studentList");
+    
+    classbutton.addEventListener('click', function() {
         classbutton.style.display = "none";
-
-        const submitbutton = document.getElementById("submitButton");
-        submitbutton.style.display = "flex";
-        
-        const attendanceTable = document.getElementById("attendanceRegister");
+        submitbutton.style.display = "inline-block";
         attendanceTable.style.display = 'table';
+        submitbutton.disabled = true;
 
         fetch('get_student.php')
             .then(response => {
@@ -16,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
+        
             .then((students) => {
 
-                const studentList = document.getElementById("studentList");
                 studentList.innerHTML = "";
 
                 students.forEach((student) => {
@@ -47,37 +48,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     studentList.appendChild(row);
 
                     presentCheckbox.addEventListener("change", () => {
-                        if(presentCheckbox.checked) absentCheckbox.checked = false;
+                        if(presentCheckbox.checked){
+                            absentCheckbox.checked = false;
+                            checkSubmitButtonState();
+                        } 
                     });
 
                     absentCheckbox.addEventListener("change", () => {
-                        if(absentCheckbox.checked) presentCheckbox.checked = false;
+                        if(absentCheckbox.checked){
+                            presentCheckbox.checked = false;
+                            checkSubmitButtonState();
+                        } 
                     });
                 });
             });
-            //.catch(error => {
-            //    console.error('Error fetching student data: ', error);
-            //});
     });
 
-    document.getElementById('submitButton').addEventListener('click', function() {
+    function checkSubmitButtonState(){
+        const checkboxes = document.querySelectorAll('.present-checkbox, .absent-checkbox');
+        const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+        submitbutton.disabled = checkedBoxes.length === 0;
+    }
+
+    submitbutton.addEventListener('click', function() {
         const attendanceData = {};
         const checkboxes = document.querySelectorAll('.present-checkbox, .absent-checkbox');
 
         checkboxes.forEach(checkbox => {
             const studentId = checkbox.name.split('_')[1];
-            if(checkbox.classList.contains('present-checkbox') && checkbox.checked){
-                attendanceData[studentId] = 'present';
-            } else if(checkbox.classList.contains('absent-checkbox') && checkbox.checked){
-                attendanceData[studentId] = 'absent';
+            if(checkbox.checked){
+                attendanceData[studentId] = checkbox.classList.contains('present-checkbox') ? 'present' : 'absent';
             }
         });
 
         fetch('updt_stdnt_attendance.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(attendanceData)
         })
         .then(response => {
@@ -87,10 +93,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log('Attendance updated successfully: ', data);
+            alert('Attendance updated successfully!')
+
+            classbutton.style.display = 'inline-block';
+            submitbutton.style.display = 'none';
+            attendanceTable.style.display = 'none'
+            studentList.innerHTML = '';
+            submitbutton.disabled = true;
         })
         .catch(error => {
             console.error('Error updating attendance: ', error);
+            alert('Failed to update attendance');
         });
-    });
+    }); 
 });
