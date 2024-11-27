@@ -38,11 +38,11 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo 'Student ID: ' . $row["id"] . ' - Name: ' . $row["name"] . ' has been absent or late for 3 consecutive days.';
+        echo 'Student ID: ' . $row["id"] . ' - Name: ' . $row["name"] . ' has been absent or late for 3 consecutive days.' . "\n";
     }
     
 } else {
-    echo '<No students with 3 consecutive absences or lateness found.';
+    echo 'No students with 3 consecutive absences or lateness found.' . "\n";
 }
 
 $conn->close();
