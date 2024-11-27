@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 02:12 AM
+-- Generation Time: Nov 27, 2024 at 02:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-DROP DATABASE IF EXISTS school_db;
-CREATE DATABASE school_db;
-USE school_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -99,7 +96,7 @@ INSERT INTO `students` (`id`, `name`, `grade`) VALUES
 
 CREATE TABLE `student_attendance` (
   `student_id` int(11) NOT NULL,
-  `status` enum('present','absent') DEFAULT NULL,
+  `status` enum('present','absent','late') DEFAULT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -109,7 +106,7 @@ CREATE TABLE `student_attendance` (
 
 INSERT INTO `student_attendance` (`student_id`, `status`, `date`) VALUES
 (5001, 'present', '2024-11-26'),
-(5001, 'present', '2024-11-27'),
+(5001, 'late', '2024-11-27'),
 (5001, 'present', '2024-11-28'),
 (5001, 'present', '2024-11-29'),
 (5001, 'absent', '2024-11-30'),
@@ -119,8 +116,8 @@ INSERT INTO `student_attendance` (`student_id`, `status`, `date`) VALUES
 (5002, 'present', '2024-11-29'),
 (5002, 'absent', '2024-11-30'),
 (5003, 'present', '2024-11-26'),
-(5003, 'present', '2024-11-27'),
-(5003, 'present', '2024-11-28'),
+(5003, 'late', '2024-11-27'),
+(5003, 'late', '2024-11-28'),
 (5003, 'present', '2024-11-29'),
 (5003, 'present', '2024-11-30'),
 (5004, 'present', '2024-11-26'),
