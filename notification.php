@@ -1,12 +1,11 @@
 <?php
 
 $servername = "localhost"; 
-$username = "root";       
+$username = "root";        
 $password = "";            
 $dbname = "school_db";     
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -29,15 +28,13 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo '<div class="notification">';
+       
         echo 'Student ID: ' . $row["id"] . ' - Name: ' . $row["name"] . ' has been absent for 3 consecutive days.';
-        echo '<button class="close-btn">&times;</button>';
-        echo '</div>';
+     
     }
 } else {
     echo '<div class="notification">No students with 3 consecutive absences found.';
-    echo '<button class="close-btn">&times;</button>';
-    echo '</div>';
+    
 }
 
 $conn->close();
