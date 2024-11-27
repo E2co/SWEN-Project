@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean Dashboard</title>
     <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="notification.css">
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -21,7 +21,7 @@
                     <ul>
                         <li><a href="Edit_registry_dean.html" target="_self">Edit/Remove student</a></li>
                         <li><a href="#" target="_blank">View attendance history</a></li>
-                        <li><a href="#" target="_blank">Edit notification message</a></li>
+                        <li><a href="editnotif.html" target="_self">Edit notification message</a></li>
                     </ul>
                 </li>
             </ul>
@@ -30,32 +30,11 @@
             </form>
         </nav>
     </header>
-
+ 
     <h2 class="title">Dean Dashboard</h2>
-
     <div id="notifications">
-        <!-- Notifications will be loaded dynamically here -->
+        
     </div>
 
-    <script>
-        $(document).ready(function () {
-            
-            $.ajax({
-                url: 'notification.php', 
-                method: 'GET',
-                success: function (response) {
-                    
-                    $('#notifications').html('<div class="notification-box"><textarea class="notification-msg">' + response + '</textarea><button class="close-btn">×</button></div>');
-                },
-                error: function () {
-                    console.error("Error fetching notifications.");
-                }
-            });
-
-            $(document).on('click', '.close-btn', function () {
-                $(this).parent('.notification-box').remove();
-            });
-        });
-    </script>
 </body>
 </html>
