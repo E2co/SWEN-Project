@@ -18,7 +18,7 @@ if(!$attendanceData || !is_array($attendanceData)){
     exit;
 }
 
-$sql = "INSERT INTO student_attendance (student_id, status, date) VALUES (?, ?, CURDATE()) ON DUPLICATE KEY UPDATE status = VALUES(status)";
+$sql = "INSERT INTO student_attendance (student_id, status, date) VALUES (?, ?, CURDATE() + 4) ON DUPLICATE KEY UPDATE status = VALUES(status)";
 
 $stmt = $conn->prepare($sql);
 
