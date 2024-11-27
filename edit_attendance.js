@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const classbutton = document.getElementById("classButton");
     const submitbutton = document.getElementById("submitButton");
     const attendanceTable = document.getElementById("attendanceRegister");
-
+    const studentList = document.getElementById("studentList");
+    
     classbutton.addEventListener('click', function() {
         classbutton.style.display = "none";
-        submitbutton.style.display = "grid";
+        submitbutton.style.display = "inline-block";
         attendanceTable.style.display = 'table';
+        submitbutton.disabled = true;
 
         fetch('get_student.php')
             .then(response => {
@@ -15,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
+        
             .then((students) => {
 
-                const studentList = document.getElementById("studentList");
                 studentList.innerHTML = "";
 
                 students.forEach((student) => {
@@ -46,15 +48,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     studentList.appendChild(row);
 
                     presentCheckbox.addEventListener("change", () => {
-                        if(presentCheckbox.checked) absentCheckbox.checked = false;
+                        if(presentCheckbox.checked){
+                            absentCheckbox.checked = false;
+                            checkSubmitButtonState();
+                        } 
                     });
 
                     absentCheckbox.addEventListener("change", () => {
-                        if(absentCheckbox.checked) presentCheckbox.checked = false;
+                        if(absentCheckbox.checked){
+                            presentCheckbox.checked = false;
+                            checkSubmitButtonState();
+                        } 
                     });
                 });
             });
     });
+
+    function checkSubmitButtonState(){
+        const checkboxes = document.querySelectorAll('.present-checkbox, .absent-checkbox');
+        const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+        submitbutton.disabled = checkedBoxes.length === 0;
+    }
 
     submitbutton.addEventListener('click', function() {
         const attendanceData = {};
@@ -80,14 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             alert('Attendance updated successfully!')
-            console.log('Server response:', data);
 
-            classbutton.style.display = 'block';
+            classbutton.style.display = 'inline-block';
             submitbutton.style.display = 'none';
-            attendanceTable.style.display = 'none';
+            attendanceTable.style.display = 'none'
+            studentList.innerHTML = '';
+            submitbutton.disabled = true;
         })
         .catch(error => {
             console.error('Error updating attendance: ', error);
+            alert('Failed to update attendance');
         });
     }); 
 });

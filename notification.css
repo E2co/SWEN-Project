@@ -1,11 +1,11 @@
 
 .notification-box {
     background-color: #cfd7dc;
-    border: 1px solid #18acd5;
+    border: 5px solid #18acd5;
     border-radius: 5px;
     padding: 10px;
-    position: relative;
-    width: 200%;
+    position: absolute;
+    width: 210%;
     max-width: 1000px;
     margin: 20px auto;
 }

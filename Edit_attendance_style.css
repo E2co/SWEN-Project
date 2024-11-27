@@ -7,23 +7,29 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.title{
-    max-width: 600px;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    color:  #4070F4;
-    margin-top: -5px;
-}
-
 body{
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 100px 20px 20px;
   background-color: #EFEFEF;
+}
+
+.container{
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.title{
+    text-align: center;
+    color: #4070F4;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 header{
@@ -61,7 +67,7 @@ header .logo img {
   margin-left: 1100px;
 }
 
-.CLASS-button, .back-button{
+.back-button{
   background-color: #FF4C4C;
   color: white;
   border: none;
@@ -71,37 +77,65 @@ header .logo img {
   border-radius: 5px;
 }
 
-.CLASS-button:hover, .back-button:hover{
+.back-button:hover{
   background-color: #e30909;
 }
 
-.attendanceRegister{
-  margin-top: 5px;
-  margin-left: 200px;
-}
-
-table, th, td{
+.attendance-register{
   border: 1px solid #000000;
+  width: 100%;
   border-collapse: collapse;
-  width: 55%;
+  margin-bottom: 20px;
 }
 
-th, td{
-  padding: 5px;
+.attendance-register th,
+.attendance-register td{
+  border: 1px solid #000000;
+  padding: 20px;
+  text-align: center;
 }
 
-.submit-button{
+.attendance-register thead th{
+  border-bottom: 2px solid #000000;;
+}
+
+.attendance-register th{
+  background-color: #f4f4f4;
+}
+
+.btn-group{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn{
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-class{
+  background-color: #FF4C4C;
+  color: white;
+}
+
+.btn-class:hover{
+  background-color: #e30909;
+}
+
+.btn-submit{
   background-color: #457ff3;
   color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 1rem;
-  border-radius: 5px;
-  margin-top: 1250px;
-  margin-left: 75px;
 }
 
-.submit-button:hover{
+.btn-submit:hover{
   background-color: #295bc0;
+}
+
+.btn:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
 }
