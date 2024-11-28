@@ -1,21 +1,11 @@
-
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 03:20 AM
+-- Generation Time: Nov 27, 2024 at 02:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-DROP DATABASE IF EXISTS school_db;
-CREATE DATABASE school_db;
-USE school_db;
-
-
---
--- Table structure for table `school`
---
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,8 +95,8 @@ INSERT INTO `students` (`id`, `name`, `grade`) VALUES
 --
 
 CREATE TABLE `student_attendance` (
-  `id` int(11) NOT NULL,
-  `status` enum('present','absent') NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `status` enum('present','absent','late') DEFAULT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,8 +104,82 @@ CREATE TABLE `student_attendance` (
 -- Dumping data for table `student_attendance`
 --
 
-INSERT INTO `student_attendance` (`id`, `status`, `date`) VALUES
-(5001, 'present', '2024-11-25');
+INSERT INTO `student_attendance` (`student_id`, `status`, `date`) VALUES
+(5001, 'present', '2024-11-26'),
+(5001, 'late', '2024-11-27'),
+(5001, 'present', '2024-11-28'),
+(5001, 'present', '2024-11-29'),
+(5001, 'absent', '2024-11-30'),
+(5002, 'present', '2024-11-26'),
+(5002, 'present', '2024-11-27'),
+(5002, 'present', '2024-11-28'),
+(5002, 'present', '2024-11-29'),
+(5002, 'absent', '2024-11-30'),
+(5003, 'present', '2024-11-26'),
+(5003, 'late', '2024-11-27'),
+(5003, 'late', '2024-11-28'),
+(5003, 'present', '2024-11-29'),
+(5003, 'present', '2024-11-30'),
+(5004, 'present', '2024-11-26'),
+(5004, 'present', '2024-11-27'),
+(5004, 'present', '2024-11-28'),
+(5004, 'present', '2024-11-29'),
+(5004, 'present', '2024-11-30'),
+(5005, 'present', '2024-11-26'),
+(5005, 'present', '2024-11-27'),
+(5005, 'present', '2024-11-28'),
+(5005, 'present', '2024-11-29'),
+(5005, 'present', '2024-11-30'),
+(5006, 'present', '2024-11-26'),
+(5006, 'present', '2024-11-27'),
+(5006, 'present', '2024-11-28'),
+(5006, 'present', '2024-11-29'),
+(5006, 'present', '2024-11-30'),
+(5007, 'present', '2024-11-26'),
+(5007, 'present', '2024-11-27'),
+(5007, 'present', '2024-11-28'),
+(5007, 'absent', '2024-11-29'),
+(5007, 'present', '2024-11-30'),
+(5008, 'present', '2024-11-26'),
+(5008, 'absent', '2024-11-27'),
+(5008, 'absent', '2024-11-28'),
+(5008, 'absent', '2024-11-29'),
+(5008, 'present', '2024-11-30'),
+(5009, 'present', '2024-11-26'),
+(5009, 'absent', '2024-11-27'),
+(5009, 'absent', '2024-11-28'),
+(5009, 'absent', '2024-11-29'),
+(5009, 'present', '2024-11-30'),
+(5010, 'present', '2024-11-26'),
+(5010, 'present', '2024-11-27'),
+(5010, 'present', '2024-11-28'),
+(5010, 'present', '2024-11-29'),
+(5010, 'present', '2024-11-30'),
+(5011, 'present', '2024-11-26'),
+(5011, 'present', '2024-11-27'),
+(5011, 'present', '2024-11-28'),
+(5011, 'present', '2024-11-29'),
+(5011, 'present', '2024-11-30'),
+(5012, 'present', '2024-11-26'),
+(5012, 'present', '2024-11-27'),
+(5012, 'present', '2024-11-28'),
+(5012, 'present', '2024-11-29'),
+(5012, 'present', '2024-11-30'),
+(5013, 'present', '2024-11-26'),
+(5013, 'present', '2024-11-27'),
+(5013, 'present', '2024-11-28'),
+(5013, 'present', '2024-11-29'),
+(5013, 'present', '2024-11-30'),
+(5014, 'present', '2024-11-26'),
+(5014, 'present', '2024-11-27'),
+(5014, 'present', '2024-11-28'),
+(5014, 'present', '2024-11-29'),
+(5014, 'present', '2024-11-30'),
+(5015, 'present', '2024-11-26'),
+(5015, 'absent', '2024-11-27'),
+(5015, 'absent', '2024-11-28'),
+(5015, 'absent', '2024-11-29'),
+(5015, 'present', '2024-11-30');
 
 -- --------------------------------------------------------
 
@@ -161,8 +225,7 @@ ALTER TABLE `students`
 -- Indexes for table `student_attendance`
 --
 ALTER TABLE `student_attendance`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `school_db_date` (`date`);
+  ADD PRIMARY KEY (`student_id`,`date`);
 
 --
 -- Indexes for table `users`
@@ -186,12 +249,6 @@ ALTER TABLE `parents_contact`
 --
 ALTER TABLE `students`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5016;
-
---
--- AUTO_INCREMENT for table `student_attendance`
---
-ALTER TABLE `student_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5002;
 
 --
 -- AUTO_INCREMENT for table `users`
