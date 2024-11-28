@@ -11,14 +11,14 @@
                                         
     </head>
     <body>
-        <h2 class="title">Prefect & Security Dashboard</h2>
-        <div class="attendance-form">
-            <h2>Attendance Form</h2>
+        <div class = "container">
+            <h2 class="title">Prefect & Security Dashboard</h2>
+            <h3>Attendance Form</h3>
             <form action="#" method="POST">
                 <input type="text" name="studentId" placeholder="ID Number">
                 <input type="text" name="studentName" placeholder="Name">
-                <div>
-                    <button type="submit">Submit</button>
+                <div class = "btn-div">
+                    <button class = "btn btn-submit" id = "submitButton">Submit</button>
                 </div>
             </form>
         </div>
@@ -35,6 +35,49 @@
         </nav>
     </header>
 
-<script src="presec_script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const submitbutton = document.getElementById("submitButton");
+    const studentIDinput = document.querySelector('input[name = "studentId"]');
+    const studentNameinput = document.querySelector('input[name = "studentName"]');
 
+    submitbutton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        const studentID = studentIDinput.value.trim();
+
+        if(!studentID){
+            alert("Please enter the student's ID");
+            return;
+        }
+
+        const attendanceData = {studentId: studentID};
+
+        fetch('presec_updt_attendance.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(attendanceData)
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new Error("Failed to update attendance");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data.success){
+                alert('Student attendance updated successfully!');
+                studentIDinput.value = '';
+                studentNameinput.value = '';
+            } else{
+                alert('Failed to record attendance: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating attendance: ', error);
+            alert('Failed to update attendance');
+        });
+    }); 
+});
+</script>
 </html>

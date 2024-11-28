@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Dashboard</title>
+    <link rel="stylesheet" href="Edit_registry_style.css">
+    <link rel="stylesheet" href="notification.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="select-containter">
+        <h2 class="title">Edit Notifications</h2>
+        <div class="gmail-button-container">
+            <button id="composeGmailBtn" class="gmail-compose-btn">Compose Email</button>
+        </div>
+    </div>
+    
+    <div id="notifications"></div>
+
+    <header>
+        <div class="logo">
+            <img src="logo-.png" alt="school-logo">
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="Dean_dashboard.html" target="_self">Home</a>
+                <li><a href="#">Features</a>
+                    <ul>
+                    </ul>
+                </li>
+            </ul>
+            <form action="logout.php" method="POST" class="logout-form">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </nav>
+    </header>
+
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'notification.php', 
+            method: 'GET',
+            success: function (response) {
+                $('#notifications').html('<div class="notification-box"><textarea class="notification-msg">' + response + '</textarea><button class="close-btn">×</button></div>');
+            },
+            error: function () {
+                console.error("Error fetching notifications.");
+            }
+        });
+        
+        $(document).on('click', '.close-btn', function () {
+            $(this).parent('.notification-box').remove();
+        });
+
+        $('#composeGmailBtn').on('click', function() {
+        
+            var gmailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=&su=School%20Notification&body=';
+            window.open(gmailComposeUrl, '_blank');
+        });
+    });
+    </script>
+</body>
+</html>

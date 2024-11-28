@@ -103,60 +103,6 @@ header .navbar ul li:hover > ul{
   display: initial;
 }
 
-.container{
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 100%;
-  max-width: 550px;
-}
-
-.title{
-  text-align: center;
-  color: #4070F4;
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
-.container h3{
-  text-align: center;
-  color: #4070F4;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-}
-
-.container input {
-  width: 65%;
-  padding: 10px;
-  margin: 10px 80px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.btn-div{
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.btn{
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-submit{
-  background-color: #457ff3;
-  color: white;
-}
-
-.btn-submit:hover{
-  background-color: #295bc0;
-}
-
 .logout-form{
   margin-left: 1100px;
 }

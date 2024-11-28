@@ -11,9 +11,9 @@
 </head>
 
 <body>
-    <h2 class="title">Attendance Register</h2>
-    <div class = "attendanceTable">
-        <table class= "attendanceRegister" id = "attendanceRegister" style = "display: none;">
+    <div class = "container">
+        <h2 class="title">Attendance Register</h2>
+        <table class = "attendance-register" id = "attendanceRegister" style = "display: none;">
             <thead>
                 <tr>
                     <th>Student Name</th>
@@ -23,9 +23,12 @@
             </thead>
             <tbody id = "studentList"></tbody>
         </table>
+
+        <div class = "btn-group">
+            <button class = "btn btn-class" id = "classButton">Load Class</button>
+            <button class = "btn btn-submit" id = "submitButton" style = "display: none;" disabled>Submit Attendance</button>
+        </div>
     </div>
-    <button type = "submit" class = "CLASS-button" id = "classButton">CLASS</button>
-    <button type = "submit" class = "submit-button" id = "submitButton" style = "display: none;">Submit</button>
 </body>
 
 <header>

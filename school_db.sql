@@ -6,6 +6,9 @@
 -- Generation Time: Nov 27, 2024 at 02:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
+DROP DATABASE IF EXISTS school_db;
+CREATE DATABASE school_db;
+USE school_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,6 +29,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `parents_contact`
 --
+
 
 CREATE TABLE `parents_contact` (
   `student_id` int(11) UNSIGNED NOT NULL,
