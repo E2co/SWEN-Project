@@ -120,3 +120,45 @@ header .navbar ul li:hover > ul{
 .logout-button:hover{
   background-color: #e30909;
 }
+
+.audit-log{
+  width: 90%;
+  max-width: 900px;
+  margin: 100px auto 0;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+}
+
+.audit-log h3 {
+  font-size: 1.5rem;
+  color: #4070F4;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.audit-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.audit-table th,
+.audit-table td{
+  padding: 12px;
+  text-align: center;
+  border: 1px solid white;
+}
+
+.audit-table th{
+  background-color: white;
+  color: #4070F4;
+}
+
+.audit-table tr:nth-child(even){
+  background-color: wheat;
+}
+
+.audit-table tr:hover {
+  background-color: #f1f1f1;
+}

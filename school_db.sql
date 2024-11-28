@@ -261,6 +261,26 @@ ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
+--
+-- Table structure for table `audit`
+--
+
+CREATE TABLE student_audit (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  student_id INT NOT NULL,
+  operation VARCHAR(20) NOT NULL, -- 'added' , 'added', 'removed'
+  changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--
+-- Dumping data for table `student_audit`
+--
+
+INSERT INTO `student_audit` (`student_id`, `operation`) VALUES
+(5001, 'updated'),
+(5002, 'added'),
+(5003, 'removed');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
