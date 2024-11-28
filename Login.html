@@ -15,8 +15,9 @@
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
             <div>
-                <button type="submit">Login</button>
+                <button class = "btn btn-submit" id = "submitButton">Login</button>
             </div>
+            <div id = "error-message" style = "color: red; display: none;"></div>
         </form>
     </div>
 </body>
@@ -25,4 +26,60 @@
         <img src="logo-.png" alt="school logo">
     </div>
 </header>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const submitbutton = document.getElementById("submitButton");
+    const usernameInput = document.querySelector('input[name = "username"]');
+    const userpwdInput = document.querySelector('input[name = "password"]');
+    const errorContainer = document.getElementById("error-message");
+
+    submitbutton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        if(errorContainer){
+            errorContainer.textContent = '';
+        }
+        
+        const username = usernameInput.value.trim();
+        const userpwd = userpwdInput.value.trim();
+
+        if(!username || !userpwd){
+            alert("Enter both username and password!!");
+            return;
+        }
+
+        fetch('login.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(userpwd)}`
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new Error("Login failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data.success){
+                window.location.href = data.redirectUrl;
+            } else{
+                showError(data.message || "Incorrect username or password.");
+            }
+        })
+        .catch(error => {
+            console.error('Login error: ', error);
+            showError("An error occurred. Please try again.");
+        });
+    }); 
+
+    function showError(message){
+        if(errorContainer){
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        } else{
+            alert(message);
+        }
+    }
+});
+</script>
 </html>

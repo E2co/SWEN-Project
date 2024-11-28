@@ -7,25 +7,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Attendance Dashboard</title>
         <link rel="icon" type="image/x-icon" href="">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="View_Attendance_style.css">
                                         
     </head>
     <body>
-        <h2 class="title">Principal Dashboard</h2>
-        <section class="audit-log">
-            <h3>Student Audit</h3>
-            <table class="audit-table">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Opration</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="auditLogsBody">
-                </tbody>
-            </table>
-        </section>
+        <main>
+            <h2 class="title">Principal Dashboard</h2>
+            <div class="filter-section">
+                <h2>View Attendance History</h2>
+                <label for="class">Grade:</label>
+                <input type="text" id="class" placeholder="Enter Grade">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date">
+                <button id="fetch-data">Fetch Attendance</button>
+            </div>
+
+            <div class="result-section">
+                <h3>Attendance Data</h3>
+                <table id="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
     </body>
 
 <header>
@@ -50,5 +62,6 @@
     </nav>
 </header>
 
-<script src="fetch_audit.js"></script>
+<script src="script.js"></script>
 </html>
+
