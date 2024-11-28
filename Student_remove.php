@@ -46,7 +46,7 @@ try {
             $stmt_attendance = $pdo->prepare("DELETE FROM student_attendance WHERE id = ?");
             $stmt_attendance->execute([$student_id]);
 
-            $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'removed')");
+            $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'Removed')");
             $auditStmt->execute(['student_id' => $student_id]);
 
             $pdo->commit();

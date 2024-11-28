@@ -277,9 +277,9 @@ CREATE TABLE student_audit (
 --
 
 INSERT INTO `student_audit` (`student_id`, `operation`) VALUES
-(5001, 'updated'),
-(5002, 'added'),
-(5003, 'removed');
+(5001, 'Updated'),
+(5002, 'Added'),
+(5003, 'Removed');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

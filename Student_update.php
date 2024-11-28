@@ -50,7 +50,7 @@ try {
         'student_id' => $parent_student_id
     ]);
 
-    $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'updated')");
+    $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'Updated')");
     $auditStmt->execute([
         'student_id' => $student_id
     ]);

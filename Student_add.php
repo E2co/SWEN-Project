@@ -43,7 +43,7 @@ try {
                 $stmt_parent = $pdo->prepare("INSERT INTO parents_contact (student_id, `parent name`, email, `telephone number`) VALUES (?, ?, ?, ?)");
                 $stmt_parent->execute([$student_id, "$parent_first_name $parent_last_name", $parent_email, $parent_telephone]);
 
-                $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'updated')");
+                $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'Added')");
                 $auditStmt->execute(['student_id' => $student_id]);
 
                 // Commit the transaction
