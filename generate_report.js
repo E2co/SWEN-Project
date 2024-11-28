@@ -33,8 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
             year: year
         };
 
+         //adding parameters to the URL
+    url.search = new URLSearchParams(params).toString();
+
+    fetch(url)
+            .then(response => response.json())  // Parse JSON response
+            .then(data => displayAttendanceReport(data))  // Call the function to display the report
+            .catch(error => console.error('Error fetching attendance report:', error));  // Error handling
+
     }
 
+   
     // Display the attendance report in a table
     function displayAttendanceReport(data) {
         const reportTable = document.getElementById("attendanceReportTable");
