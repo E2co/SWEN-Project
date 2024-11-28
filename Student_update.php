@@ -50,6 +50,12 @@ try {
         'student_id' => $parent_student_id
     ]);
 
+    $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'updated')");
+    $auditStmt->execute([
+        'student_id' => $student_id
+    ]);
+    
+
     echo json_encode(['success' => true]);
 
 } catch(PDOException $e) {

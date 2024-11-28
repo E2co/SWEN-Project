@@ -12,6 +12,20 @@
     </head>
     <body>
         <h2 class="title">Principal Dashboard</h2>
+        <section class="audit-log">
+            <h3>Student Audit</h3>
+            <table class="audit-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Opration</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="auditLogsBody">
+                </tbody>
+            </table>
+        </section>
     </body>
 
 <header>
@@ -36,5 +50,5 @@
     </nav>
 </header>
 
-<script src="script.js"></script>
+<script src="fetch_audit.js"></script>
 </html>

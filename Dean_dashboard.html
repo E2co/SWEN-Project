@@ -29,9 +29,23 @@
     </header>
  
     <h2 class="title">Dean Dashboard</h2>
+    <section class="audit-log">
+        <h3>Student Audit</h3>
+        <table class="audit-table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Opration</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="auditLogsBody">
+            </tbody>
+        </table>
+    </section>
     <div id="notifications">
         
     </div>
-
+<script src="fetch_audit.js"></script>
 </body>
 </html>
