@@ -1,13 +1,17 @@
-
 .notification-box {
     background-color: #cfd7dc;
     border: 5px solid #18acd5;
     border-radius: 5px;
     padding: 10px;
-    position: absolute;
-    width: 210%;
+    width: 90%; 
     max-width: 1000px;
-    margin: 20px auto;
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    box-sizing: border-box;
+    flex-direction: column; 
+    align-items: center;
 }
 
 .notification-msg {
@@ -19,6 +23,7 @@
     padding: 10px;
     box-sizing: border-box;
     resize: vertical;
+    margin-bottom: 30px;
 }
 
 .close-btn {
@@ -34,4 +39,92 @@
 
 .close-btn:hover {
     color: #c9302c;
+}
+
+.gmail-compose-btn {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.gmail-compose-btn:hover {
+    background-color: #357ae8;.notification-box {
+        background-color: #cfd7dc;
+        border: 5px solid #18acd5;
+        border-radius: 5px;
+        padding: 10px;
+        width: 90%; 
+        max-width: 1000px;
+        position: fixed;
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        box-sizing: border-box;
+        flex-direction: column; 
+        align-items: center;
+    }
+    
+    .notification-msg {
+        width: 100%;
+        height: 150px;
+        border: none;
+        background-color: transparent;
+        font-size: 1rem;
+        padding: 10px;
+        box-sizing: border-box;
+        resize: vertical;
+        margin-bottom: 5px; 
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #d9534f;
+    }
+    
+    .close-btn:hover {
+        color: #c9302c;
+    }
+    
+    .gmail-button-container {
+        margin-top: 200px; 
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .gmail-compose-btn {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+    
+    .gmail-compose-btn:hover {
+        background-color: #357ae8;
+    }
+    
+    .gmail-compose-btn:active {
+        background-color: #2a5cdb;
+    }
+    
+}
+
+.gmail-compose-btn:active {
+    background-color: #2a5cdb;
 }

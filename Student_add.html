@@ -1,48 +1,78 @@
 <!DOCTYPE html>
-    
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Attendance Dashboard</title>
-        <link rel="icon" type="image/x-icon" href="">
-        <link rel="stylesheet" href="Student_add.css">
-                                        
-    </head>
-    <body>
-        <div class = "select-containter" >
-            <h2 class="title">Add Student</h2>
-            <form action = "student_registry.php" method="POST" >
-                <h3>Student information</h3>
-                <div>
-                    <input type="text" name="student_id" placeholder="Student ID Number" class="search-field">
-                    <input type="text" name="st_first_name" placeholder="First Name" class="search-field">
-                    <input type="text" name="st_last_name" placeholder="Last Name" class="search-field">
-                    <input type="text" name="grade" placeholder="Grade" class="search-field">               
-                </div>                   
-                <h3>Parent Information</h3>
-                <div>
-                    <input type="text" name="id" placeholder="First Name" class="search-field">
-                    <input type="text" name="id" placeholder="Last Name" class="search-field">
-                    <input type="text" name="id" placeholder="Email" class="search-field">
-                    <input type="text" name="id" placeholder="Telephone Number" class="search-field">            
-                </div>
-                <div>
-                    <button type = "submit" class = "" onclick="">Submit</button>
-                </div>                
-                </form>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Student_add.css">
+    <title>Add Student</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo-.png" alt="school-logo">
         </div>
-    </body>
+        <nav class="navbar">
+            <button type="submit" class="logout-button" onclick="window.history.back();">Back</button>
+        </nav>
+    </header>
 
-<header>
-    <div class = "logo">
-        <img src="logo-.png" alt="school-logo">
-    </div>
-    <nav class="navbar">
-            <button type = "submit" class = "logout-button" onclick="window.history.back();">Back</button>
+    <div class="select-container">
+        <h2 class="title">Add Student</h2>
+        <form id="studentForm">
+            <h3>Student Information</h3>
+            <div>
+                <input type="text" name="student_id" placeholder="Student ID Number" class="search-field" required>
+                <input type="text" name="st_first_name" placeholder="First Name" class="search-field" required>
+                <input type="text" name="st_last_name" placeholder="Last Name" class="search-field" required>
+                <input type="text" name="grade" placeholder="Grade" class="search-field" required>              
+            </div>                  
+            <h3>Parent Information</h3>
+            <div>
+                <input type="text" name="parent_first_name" placeholder="First Name" class="search-field" required>
+                <input type="text" name="parent_last_name" placeholder="Last Name" class="search-field" required>
+                <input type="email" name="parent_email" placeholder="Email" class="search-field" required>
+                <input type="tel" name="parent_telephone" placeholder="Telephone Number" class="search-field" required>            
+            </div>
+            <div>
+                <button type="submit" id="submit-btn">Submit</button>
+            </div>
         </form>
-    </nav>
-</header>
+    </div>
 
+    <script>
+    document.getElementById('studentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'Student_add.php', true);
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        window.location.href = 'Student_add.html';
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                } catch (e) {
+                    alert('Error parsing server response');
+                }
+            } else {
+                alert('Error adding student. Please try again.');
+            }
+        };
+
+        xhr.onerror = function() {
+            alert('Network error. Please check your connection.');
+        };
+
+        xhr.send(formData);
+    });
+    </script>
+</body>
 </html>

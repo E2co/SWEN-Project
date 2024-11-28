@@ -1,58 +1,65 @@
-<?php 
+<?php
+header('Content-Type: application/json');
 
-$conn = new mysqli('localhost', 'root','','school_db');
+// Database connection
+$host = 'localhost';
+$dbname = 'school_db';
+$username = 'root';
+$password = '';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn -> connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
+    exit();
 }
 
+// Check if student_id is provided
+if (!isset($_POST['student_id'])) {
+    echo json_encode(['error' => 'No student ID provided']);
+    exit();
+}
 
-if (isset(($_POST['id']))) {
-    $student_id = $_POST['id'];
+$student_id = $_POST['student_id'];
 
-    $query = "SELECT * FROM students WHERE id =?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $student_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+try {
+    // Fetch student information
+    $stmt = $pdo->prepare("SELECT * FROM students WHERE id = :student_id");
+    $stmt->execute(['student_id' => $student_id]);
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result->num_rows > 0) {
-        $student = $result->fetch_assoc();
-        echo "<h3>Student Information</h3>";
-
-        echo '<label for="name">Name:</label>';
-        echo '<input type="text" id="name" name="name" value="' . htmlspecialchars($student['name']) .'"required><br>';
-        
-        echo '<label for="grade">Grade:</label>';
-        echo '<input type="number" id="grade" name="grade" value="' . htmlspecialchars($student['grade']) .'"required><br>';
-
-        $parent_query = "SELECT * FROM parents_contact WHERE student_id = ?";
-        $parent_stmt = $conn->prepare($parent_query);
-        $parent_stmt->bind_param("i", $student_id);
-        $parent_stmt->execute();
-        $parent_result = $parent_stmt->get_result();
-    
-        if ($parent_result->num_rows > 0) {
-            $parent = $parent_result->fetch_assoc();
-            echo "<h3>Parent Information</h3>";
-
-            echo '<label for="parent_name">Parent Name:</label>';
-            echo '<input type="text" id="parent_name" name="parent_name" value="' . htmlspecialchars($parent['parent name']) .'"required><br>';
-
-            echo '<label for="email">Email:</label>';
-            echo '<input type="email" id="email" name="email" value="' . htmlspecialchars($parent['email']) .'"required><br>';
-
-            echo '<label for="phone">Phone:</label>';
-            echo '<input type="text" id="phone" name="phone" value="' . htmlspecialchars($parent['telephone number']) .'"required><br>';
-    
-        } else {
-            echo "<p>No parent contact information found.</p>";
-        }
-    } else {
-        echo "<p> No student found with that ID.</p>";
+    if (!$student) {
+        echo json_encode(['error' => 'Student not found']);
+        exit();
     }
-    
-    $conn->close();
 
+    // Fetch parent information
+    $stmt = $pdo->prepare("SELECT * FROM parents_contact WHERE student_id = :student_id");
+    $stmt->execute(['student_id' => $student_id]);
+    $parent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$parent) {
+        echo json_encode(['error' => 'Parent information not found']);
+        exit();
+    }
+
+    // Return student and parent information
+    echo json_encode([
+        'student' => [
+            'id' => $student['id'],
+            'name' => $student['name'],
+            'grade' => $student['grade']
+        ],
+        'parent' => [
+            'student_id' => $parent['student_id'],
+            'parent_name' => $parent['parent name'],
+            'email' => $parent['email'],
+            'telephone_number' => $parent['telephone number']
+        ]
+    ]);
+
+} catch(PDOException $e) {
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
 }
 ?>
