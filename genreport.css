@@ -103,20 +103,49 @@ header .navbar ul li:hover > ul{
   display: initial;
 }
 
-.logout-form{
-  margin-left: 1100px;
+.attendanceReport {
+  margin-top: 50px; /* Add some margin for spacing from other elements */
+  width: 90%; /* Adjust the table width */
+  max-width: 1200px; /* Max table width to prevent it from being too wide */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.logout-button{
-  background-color: #FF4C4C;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
+#attendanceReportTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#attendanceReportTable th,
+#attendanceReportTable td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+#attendanceReportTable th {
+  background-color: #4070F4;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+#attendanceReportTable td {
   font-size: 1rem;
-  border-radius: 5px;
 }
 
-.logout-button:hover{
-  background-color: #e30909;
+#attendanceReportTable tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+#attendanceReportTable tr:hover {
+  background-color: #e9e9e9;
+}
+
+#attendanceReportBody tr {
+  transition: background-color 0.3s ease;
 }

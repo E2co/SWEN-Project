@@ -1,11 +1,15 @@
 <?php
 //include the database connection
+
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "school_db";
 
 $conn = new mysqli($host, $user, $pass, $db);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 //checking the connection
 if ($conn->connect_error) {
@@ -15,8 +19,10 @@ if ($conn->connect_error) {
 //get filter values from the GET request
 $selectedGrade = isset($_GET['grade'])? $_GET['grade'] : '';
 $selectedStudentId = isset($_GET['student_id'])? $_GET['student_id']: '';
-$selectedMonth = isset($_GET['month'])? $_GET['month'] : date('m');//default to current month
-$selectedYear = isset($_GET['year'])? $_GET['year'] : date ('Y');//default to current year
+$selectedMonth = isset($_GET['month'])? $_GET['month'] : '';//default to current month
+$selectedYear = isset($_GET['year'])? $_GET['year'] :'';//default to current year
+
+file_put_contents('debug.log', print_r($_GET, true), FILE_APPEND);
 
 //SQL QUERY
 $query = "
@@ -42,11 +48,11 @@ if ($selectedStudentId){
 and the actual variables as arguments listed after. It depends on whether the filters are provided.*/
 $stmt = $conn->prepare($query);
 if ($selectedGrade && $selectedStudentId){
-    $stmt->bind_param('iiii', $selectedMonth, $selectedYear, $selectedGrade, $selectedStudentId);
+    $stmt->bind_param('iiis', $selectedMonth, $selectedYear, $selectedGrade, $selectedStudentId);
 }elseif($selectedGrade){
-    $stmt->bind_param('ii', $selectedMonth, $selectedYear, $selectedGrade);
+    $stmt->bind_param('iis', $selectedMonth, $selectedYear, $selectedGrade);
 }elseif($selectedStudentId){
-    $stmt->bind_param('ii', $selectedMonth, $selectedYear, $selectedStudentId);
+    $stmt->bind_param('iis', $selectedMonth, $selectedYear, $selectedStudentId);
 }else {
     $stmt->bind_param('ii', $selectedMonth, $selectedYear);
 }
@@ -63,7 +69,7 @@ while ($row = $result->fetch_assoc())
 
     //initialize the student data 
     if (!isset($attendanceData[$studentId])){
-        $attendanceData[$studentID]=[
+        $attendanceData[$studentId]=[
             'name'=>$row['name'],
             'totalp'=>0, //stores the total present
             'totala'=>0, //stores the total absent
@@ -89,9 +95,10 @@ while ($row = $result->fetch_assoc())
         $summary['perc']=($totalDays > 0)? ($summary['totalp']/$totalDays)*100: 0;
 
         $absenceDates=$summary['abs_dates'];
-        sort($absenceDate); //Ensures the absence dates are sorted
+        sort($absenceDates); //Ensures the absence dates are sorted
  
     }
+    
     //closing connection
     $stmt->close();
     $conn->close();
