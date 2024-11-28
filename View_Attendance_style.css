@@ -136,7 +136,7 @@ main{
 label {
     display: inline-block;
     margin-right: 10px;
-    width: 120px;
+    width: 150px;
     font-weight: bold;
 }
 
@@ -183,5 +183,11 @@ table th {
     text-align: left;
 }
 
-
+.message{
+  font-style:italic;
+  color:#555;
+  font-size:0.9em;
+  text-align:center;
+  margin-top: 10px;
+}
 
