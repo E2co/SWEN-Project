@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean Dashboard</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="logo-.png" alt="school-logo">
-        </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="Dean_dashboard.html">Home</a></li>
-                <li><a href="#">Features</a>
-                    <ul>
-                        <li><a href="Edit_registry_dean.html" target="_self">Edit/Remove student</a></li>
-                        <li><a href="#" target="_blank">View attendance history</a></li>
-                        <li><a href="editnotif.html" target="_self">Edit notification message</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form action="logout.php" method="POST" class="logout-form">
-                <button type="submit" class="logout-button">Logout</button>
-            </form>
-        </nav>
-    </header>
- 
-    <h2 class="title">Dean Dashboard</h2>
-    <div id="notifications">
-        
-    </div>
 
+<body>
+    <h2 class="title">Dean Dashboard</h2>
+    <div id="notifications"></div>
 </body>
+
+<header>
+    <div class="logo">
+        <img src="logo-.png" alt="school-logo">
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="Dean_dashboard.html">Home</a></li>
+            <li><a href="#">Features</a>
+                <ul>
+                    <li><a href="Edit_registry_dean.html">Edit/Remove student</a></li>
+                    <li><a href="View_attendance_dean.html">View attendance history</a></li>
+                    <li><a href="editnotif.html">Edit notification message</a></li>
+                </ul>
+            </li>
+        </ul>
+        <form action="logout.php" method="POST" class="logout-form">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </nav>
+</header>
 </html>
