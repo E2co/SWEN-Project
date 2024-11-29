@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 $host = 'localhost';
 $dbname = 'school_db';
 $username = 'root';  
@@ -44,7 +43,7 @@ try {
             $stmt_student = $pdo->prepare("DELETE FROM students WHERE id = ?");
             $stmt_student->execute([$student_id]);
 
-            $stmt_attendance = $pdo->prepare("DELETE FROM student_attendance WHERE id = ?");
+            $stmt_attendance = $pdo->prepare("DELETE FROM student_attendance WHERE student_id = ?");
             $stmt_attendance->execute([$student_id]);
 
             $auditStmt = $pdo->prepare("INSERT INTO student_audit (student_id, operation) VALUES (:student_id, 'Removed')");
