@@ -16,10 +16,10 @@ if ($conn->connect_error) {
 }
 
 // Retrieve filter values from the AJAX POST request
-$studentID = isset($_POST['student_id']) ? $_POST['student_id'] : '';
-$grade = isset($_POST['grade']) ? $_POST['grade'] : '';
-$month = isset($_POST['month']) ? $_POST['month'] : date('m');  
-$year = isset($_POST['year']) ? $_POST['year'] : date('Y');  
+$studentID = isset($_POST['selectedgradestudentIdval']) ? $_POST['selectedgradestudentIdval'] : '';
+$grade = isset($_POST['selectedgradeval']) ? $_POST['selectedgradeval'] : '';
+$month = isset($_POST['selectedmonthval']) ? $_POST['selectedmonthval'] : date('m');  
+$year = isset($_POST['selectedyearval']) ? $_POST['selectedyearval'] : date('Y');  
 
 error_log("Filters - Student ID: " . $studentID . ", Grade: " . $grade . ", Month: " . $month . ", Year: " . $year);
 
