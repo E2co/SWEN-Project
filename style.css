@@ -24,6 +24,7 @@ body{
   align-items: center;
   justify-content: center;
   background-color: #EFEFEF;
+  padding: 75px;
 }
 
 header{
@@ -104,7 +105,7 @@ header .navbar ul li:hover > ul{
 }
 
 .logout-form{
-  margin-left: 1100px;
+  margin-left: 1070px;
 }
 
 .logout-button{
@@ -125,7 +126,7 @@ header .navbar ul li:hover > ul{
   width: 90%;
   max-width: 900px;
   margin: 100px auto 0;
-  padding: 20px;
+  padding: 10px;
   background-color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
 }
