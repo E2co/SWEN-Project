@@ -1,12 +1,11 @@
 document.getElementById('fetch-data').addEventListener('click', function() {
-    const studentID = document.getElementById('stdid').value;
     const studentName = document.getElementById('stdname').value;
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
 
     // Validate input
-    if (!studentName && !studentID) {
-        alert('Please enter either the student name or id.');
+    if (!studentName || !startDate || !endDate) {
+        alert('Please fill in all fields.');
         return;
     }
 
@@ -23,13 +22,13 @@ document.getElementById('fetch-data').addEventListener('click', function() {
             tableBody.innerHTML = ''; // Clear previous results
 
             // Populate the table with the fetched data
-            response.forEach(stuData => {
+            response.forEach(record => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${stuData.student_id}</td>
-                    <td>${stuData.name}</td>
-                    <td>${stuData.date}</td>
-                    <td>${stuData.status}</td>
+                    <td>${record.student_id}</td>
+                    <td>${record.name}</td>
+                    <td>${record.date}</td>
+                    <td>${record.status}</td>
                 `;
                 tableBody.appendChild(row);
             });
@@ -39,5 +38,5 @@ document.getElementById('fetch-data').addEventListener('click', function() {
     };
 
     // Send the request with the data
-    xhr.send(`studentID=${encodeURIComponent(studentID)}&studentName=${encodeURIComponent(studentName)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
+    xhr.send(`studentName=${encodeURIComponent(studentName)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
 });
