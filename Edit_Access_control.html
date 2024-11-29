@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Access Control Dashboard</title>
+        <link rel="icon" type="image/x-icon" href="">
+        <link rel="stylesheet" href="Edit_registry_style.css">
+                                        
+    </head>
+    <body>
+        <h2 class="title">Edit Access Control</h2>
+        <form action = "access_control.php" method="POST" >
+            <div>
+                <a href="Dean_dashboard.html" class = "action-button">Dean</a>
+                <a href="Teacher_dashboard.html" class = "action-button">Teacher</a>
+                <a href="Presec_dashboard.html" class = "action-button">Prefect and Security</a>
+            </div>
+        </form>
+    </body>
+
+<header>
+    <div class = "logo">
+        <img src="logo-.png" alt="school-logo">
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="Principal_dashboard.html" target="_self">Home</a>
+            <li><a href="#">Features</a>
+                <ul>
+                    <li><a href="#" target="_blank">View attendance history</a>
+                        <a href="#" target="_blank">Generate Report</a> 
+                        <a href="#" target="_blank">Edit/Remove student</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <form action = "logout.php" method = "POST" class = "logout-form">
+            <button type = "submit" class = "logout-button">Logout</button>
+        </form>
+    </nav>
+</header>
+
+<script src="script.js"></script>
+</html>

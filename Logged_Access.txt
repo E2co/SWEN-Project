@@ -1,0 +1,44 @@
+[2024-11-29 04:57:33] Access Attempt: User Principal attempting to access dashboard
+[2024-11-29 04:57:33] Successful Access: User Principal
+[2024-11-29 04:57:39] Access Attempt: User Principal attempting to access dashboard
+[2024-11-29 04:57:39] Successful Access: User Principal
+[2024-11-29 04:57:41] Access Attempt: User Principal attempting to access dashboard
+[2024-11-29 04:57:41] Successful Access: User Principal
+[2024-11-29 04:57:47] Access Attempt: User Dean attempting to access dashboard
+[2024-11-29 04:57:47] Successful Access: User Dean
+[2024-11-29 04:59:18] Access Attempt: User Dean attempting to access dashboard
+[2024-11-29 04:59:18] Successful Access: User Dean
+[2024-11-29 05:05:39] Access Attempt: User Dean attempting to access dashboard
+[2024-11-29 05:05:39] Successful Access: User Dean
+[2024-11-29 05:12:18] Access Attempt: User Dean attempting to access dashboard
+[2024-11-29 05:12:18] Successful Access: User Dean
+[2024-11-29 05:14:21] Access Attempt: User Principal attempting to access dashboard
+[2024-11-29 05:14:21] Successful Access: User Principal
+[2024-11-29 05:19:07] Access Attempt: User Array attempting to access dashboard
+[2024-11-29 05:19:14] Access Attempt: User Array attempting to access dashboard
+[2024-11-29 05:19:16] Access Attempt: User Array attempting to access dashboard
+[2024-11-29 05:21:13] Access Attempt: User root attempting to access dashboard
+[2024-11-29 05:23:54] Access Attempt: User principal attempting to access dashboard
+[2024-11-29 05:25:16] Access Attempt: User principal attempting to access dashboard
+[SELECT CURDATE()] Access Attempt: User dean attempting to access dashboard
+[CURDATE()] Access Attempt: User dean attempting to access dashboard
+[Array] Access Attempt: User dean attempting to access dashboard
+[Array] Access Attempt: User dean attempting to access dashboard
+[Array] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:34:42,am] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 23:36:04,pm] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:36:45,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:36:48,am] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:37:40,pm] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:38:57,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:39:04,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 05:39:05,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 04:40:09,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 04:40:21,am] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:41:29,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:41:58,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:42:56,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:43:56,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:44:05,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:44:05,pm] Access Attempt: User dean attempting to access dashboard
+[Thu,2024-11-28 11:45:28,pm] Access Attempt: User principal attempting to access dashboard
