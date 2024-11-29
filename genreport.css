@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,7 +18,7 @@
   margin-top: 0; /* Removed unnecessary negative margin */
 }
 
-body{
+body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ body{
   padding-top: 70px;
 }
 
-header{
+header {
   position: fixed;
   top: 0; left: 0; right: 0;
   background: #fffdfd;
@@ -38,7 +38,7 @@ header{
   align-items: center;
 }
 
-header .logo{
+header .logo {
   font-weight: bolder;
   font-size: 1rem;
   background: none;
@@ -55,21 +55,21 @@ header .logo img {
   height: auto;
 }
 
-.navbar{
+.navbar {
   margin-right: 950px;
 }
 
-header .navbar ul{
+header .navbar ul {
   list-style: none;
 }
 
-header .navbar ul li{
+header .navbar ul li {
   position: relative;
   float: left;
   text-decoration: none;
 }
 
-header .navbar ul li a{
+header .navbar ul li a {
   font-size: 12px;
   padding: 13px;
   color: #4070F4;
@@ -77,12 +77,12 @@ header .navbar ul li a{
   text-decoration: none;
 }
 
-header .navbar ul li a:hover{
+header .navbar ul li a:hover {
   background: rgb(188, 191, 209);
   color: #fff;
 }
 
-header .navbar ul li ul{
+header .navbar ul li ul {
   position: absolute;
   left: 0;
   width: 250px;
@@ -90,18 +90,13 @@ header .navbar ul li ul{
   display: none;
 }
 
-header .navbar ul li ul li{
+header .navbar ul li ul li {
   width: 100%;
   border-top: 1px solid #4070F4;
 }
 
-header .navbar ul li ul li ul{
-  left: 250px;
-  top: 0;
-}
-
 header .navbar ul li:focus-within > ul,
-header .navbar ul li:hover > ul{
+header .navbar ul li:hover > ul {
   display: initial;
 }
 
@@ -155,7 +150,7 @@ header .navbar ul li:hover > ul{
   margin-left: 1100px;
 }
 
-.logout-button{
+.logout-button {
   background-color: #FF4C4C;
   color: white;
   border: none;
@@ -165,7 +160,7 @@ header .navbar ul li:hover > ul{
   border-radius: 5px;
 }
 
-.logout-button:hover{
+.logout-button:hover {
   background-color: #e30909;
 }
 
@@ -180,35 +175,24 @@ header .navbar ul li:hover > ul{
   border-radius: 8px;
 }
 
-.audit-log h3 {
-  font-size: 1.5rem;
-  color: #4070F4;
-  margin-bottom: 15px;
-  text-align: center;
+.audit-log {
+  width: 100%; 
+  margin-top: 20px; 
 }
 
-.audit-table{
-  width: 100%;
+.audit-table {
+  width: 100%; 
   border-collapse: collapse;
-  margin-top: 20px;
+  background-color: white; 
 }
 
-.audit-table th,
-.audit-table td{
-  padding: 12px;
-  text-align: center;
-  border: 1px solid white;
+.audit-table th, .audit-table td {
+  border: 1px solid #4070F4; 
+  padding: 8px;
+  text-align: left; 
 }
 
-.audit-table th{
-  background-color: white;
-  color: #4070F4;
-}
-
-.audit-table tr:nth-child(even){
-  background-color: wheat;
-}
-
-.audit-table tr:hover {
-  background-color: #f1f1f1;
+.audit-table th {
+  background-color: #4070F4; 
+  color: white; 
 }
