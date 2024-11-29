@@ -11,12 +11,7 @@ $conn = new mysqli($host, $user, $pass, $db);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-//header("Access-Control-Allow-Origin: *");  // Allow any domain (can be restricted to specific domains)
-//header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");  // Allowed HTTP methods
-//header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");  // Allowed headers
 
-
-//checking the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -24,12 +19,11 @@ if ($conn->connect_error) {
 // Retrieve filter values from the AJAX POST request
 $studentID = isset($_POST['student_id']) ? $_POST['student_id'] : '';
 $grade = isset($_POST['grade']) ? $_POST['grade'] : '';
-$month = isset($_POST['month']) ? $_POST['month'] : date('m');  // Default to current month
-$year = isset($_POST['year']) ? $_POST['year'] : date('Y');  // Default to current year
+$month = isset($_POST['month']) ? $_POST['month'] : date('m');  
+$year = isset($_POST['year']) ? $_POST['year'] : date('Y');  
 
 error_log("Filters - Student ID: " . $studentID . ", Grade: " . $grade . ", Month: " . $month . ", Year: " . $year);
 
-// Initialize the base query
 $query = "
     SELECT s.id AS student_id, s.name, s.grade, sa.status, sa.date
     FROM student_attendance sa
@@ -99,10 +93,9 @@ if ($result->num_rows > 0) {
 } else {
     error_log("No attendance data found for the provided filters.");
 }
-
+ 
 // Calculate the attendance percentage for each student
 foreach ($attendanceData as $studentId => &$summary) {
-    // Total days attended (present + late) and total days (present + absent + late)
     $totalDays = $summary['totalPresent'] + $summary['totalAbsent'] + $summary['totalLate'];
     $summary['attendancePercentage'] = ($totalDays > 0) ? ($summary['totalPresent'] / $totalDays) * 100 : 0;
 
@@ -115,7 +108,6 @@ foreach ($attendanceData as $studentId => &$summary) {
 $stmt->close();
 $conn->close();
 
-// Return the attendance report as a JSON response
 header('Content-Type: application/json');
 echo json_encode(array_values($attendanceData));
 ?>

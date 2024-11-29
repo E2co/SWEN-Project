@@ -1,104 +1,81 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Call fetchStudents function when the page is loaded
-    fetchStudents();
 
-    // Fetch students and populate the student select dropdown
-    function fetchStudents() {
-        fetch('get_student.php')  // Make an API request to get_student.php
-            .then(response => response.json())  // Parse the JSON response
-            .then(students => populateStudentSelect(students))  // Call the function to populate the dropdown
-            .catch(error => console.error('Error fetching students:', error));  // Error handling
-    }
-
-    //function to populate the student dropdown menu
     function populateStudentSelect(students) {
+       
         const studentSelect = document.getElementById("studentId");
-        studentSelect.innerHTML = '<option value="">Select Student</option>';  // Reset select options
+        studentSelect.innerHTML = '<option value="">Select Student</option>';  
 
         students.forEach(student => {
             const option = document.createElement("option");
-            option.value = student.id;  // Set the value of the option to student id
-            option.textContent = student.name;  // Set the text content of the option to student name
-            studentSelect.appendChild(option);  // Append the option to the select dropdown
-        });
-    }
+            option.value = student.id;  
+            option.textContent = student.name;  
+            studentSelect.appendChild(option);  
+        });}
 
-    // Fetch the attendance report based on selected filters (using POST)
-    function fetchAttendanceReport(grade, studentId, month, year) {
-        const url = "generate_report.php";  // URL of the PHP file that will generate the report
-        const data = {
-            grade: grade,
-            student_id: studentId,
-            month: month,
-            year: year
-        };
+            window.onload=fetchStudents;
+    function fetchStudents() {
+        fetch('get_student.php')  
+            .then(response => response.json()) 
+            .then(students => populateStudentSelect(students))  
+            .catch(error => console.error('Error fetching students:', error));  
+}
+window.onload=fetchStudents;
+    function fetchAuditLogs() {
+        const selectedgrade=document.getElementById('grade');
+        const selectedstudentId=document.getElementById('studentId');
+        const selectedmonth=document.getElementById('month');
+        const selectedyear=document.getElementById('year');
 
-        console.log("Request Data:", data);  // Debugging line to check the data being sent
+        const selectedgradeval= selectedgrade.value;
+        const selectedgradestudentIdval= selectedstudentId.value;
+        const selectedmonthval= selectedmonth.value;
+        const selectedyearval = selectedyear.value;
 
-        fetch(url, {
-            method: 'POST',  // Change to POST method
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'  // Set the content type for POST
-            },
-            body: new URLSearchParams(data).toString()  // Convert the data to a URL-encoded string
-        })
-        .then(response => response.json())  // Parse the JSON response
-        .then(data => displayAttendanceReport(data))  // Call the function to display the report
-        .catch(error => console.error('Error fetching attendance report:', error));  // Error handling
-    }
+        if (selectedgradeval || selectedgradestudentIdval || selectedmonthval|| selectedyearval) {
+            const formData = new FormData();
+            formData.append('selectedgradeval', selectedgradeval);
+            formData.append('selectedgradestudentIdval', selectedgradestudentIdval);
+            formData.append('selectedmonthval', selectedmonthval);
+            formData.append('selectedyearval', selectedyearval);
+            
 
-    // Display the attendance report in a table
-    function displayAttendanceReport(data) {
-        const reportTable = document.getElementById("attendanceReportTable");
-        const reportBody = document.getElementById("attendanceReportBody");
-
-        // Clear any previous data
-        reportBody.innerHTML = '';
-
-        if (data.length === 0) {
-            reportBody.innerHTML = '<tr><td colspan="4">No data found.</td></tr>';
-        } else {
-            data.forEach(student => {
-                const row = document.createElement("tr");
-
-                const nameCell = document.createElement("td");
-                nameCell.textContent = student.name;
-                row.appendChild(nameCell);
-
-                const presentCell = document.createElement("td");
-                presentCell.textContent = student.totalp;  // Total Present
-                row.appendChild(presentCell);
-
-                const absentCell = document.createElement("td");
-                absentCell.textContent = student.totala;  // Total Absent
-                row.appendChild(absentCell);
-
-                const percCell = document.createElement("td");
-                percCell.textContent = student.perc.toFixed(2) + '%';  // Attendance percentage
-                row.appendChild(percCell);
-
-                reportBody.appendChild(row);  // Append the row to the table body
+            
+            fetch('generate_report.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('auditLogsBody');
+                tbody.innerHTML = '';
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9">No audit records available.</td></tr>';
+                } else {
+                    data.forEach(log => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${log.name}</td>
+                            <td>${log.grade}</td>
+                            <td>${log.totalPresent}</td>
+                            <td>${log.totalAbsent}</td>
+                            <td>${log.totalLate}</td>
+                            <td>${log.attendancePercentage}</td>       
+                            <td>${log.absenceDates}</td>
+                            <td>${log.lateDates}</td>
+                            
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-        }
-
-        // Show the report table
-        reportTable.style.display = 'table';
-    }
+        } else {
+            alert('Please select an item')
+        }}
     
-    // Handle form submission for generating the report
-    document.getElementById("generateReportBtn").addEventListener("click", function() {
-        const grade = document.getElementById("grade").value;
-        const studentId = document.getElementById("studentId").value;
-        const month = document.getElementById("month").value;
-        const year = document.getElementById("year").value;
+    
 
-        // Call function to fetch attendance report based on selected filters
-        fetchAttendanceReport(grade, studentId, month, year);
-    });
-
-});
-
-
-
-
+       
+    
 
