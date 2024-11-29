@@ -8,22 +8,24 @@
 }
 
 .title{
-    max-width: 600px;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    color:  #4070F4;
-    margin-top: -5px;
+  max-width: 600px;
+  position: absolute;
+  top: 15%; /* Adjusted top to create space between title and the top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #4070F4;
+  margin-top: 0; /* Removed unnecessary negative margin */
 }
 
 body{
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #EFEFEF;
+  padding-top: 70px;
 }
 
 header{
@@ -103,6 +105,52 @@ header .navbar ul li:hover > ul{
   display: initial;
 }
 
+.filter-form {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 60px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+  border-radius: 8px;
+}
+
+.filter-form form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  align-items: center;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.filter-form select,
+.filter-form button {
+  padding: 12px; /* Increased padding for all dropdowns and button for consistency */
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.filter-form button {
+  padding: 8px 10px;
+  background-color: #4070F4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.filter-form button:hover {
+  background-color: #305f99;
+}
+
+
 .logout-form{
   margin-left: 1100px;
 }
@@ -122,13 +170,14 @@ header .navbar ul li:hover > ul{
 }
 
 
-.audit-log{
-  width: 90%;
+.audit-log {
+  width: 100%;
   max-width: 900px;
-  margin: 100px auto 0;
+  margin-top: 30px;
   padding: 20px;
   background-color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+  border-radius: 8px;
 }
 
 .audit-log h3 {
