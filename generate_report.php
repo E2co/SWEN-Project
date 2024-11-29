@@ -11,102 +11,113 @@ $conn = new mysqli($host, $user, $pass, $db);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+//header("Access-Control-Allow-Origin: *");  // Allow any domain (can be restricted to specific domains)
+//header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");  // Allowed HTTP methods
+//header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");  // Allowed headers
+
+
 //checking the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-//get filter values from the GET request
-$selectedGrade = isset($_GET['grade'])? $_GET['grade'] : '';
-$selectedStudentId = isset($_GET['student_id'])? $_GET['student_id']: '';
-$selectedMonth = isset($_GET['month'])? $_GET['month'] : '';//default to current month
-$selectedYear = isset($_GET['year'])? $_GET['year'] :'';//default to current year
+// Retrieve filter values from the AJAX POST request
+$studentID = isset($_POST['student_id']) ? $_POST['student_id'] : '';
+$grade = isset($_POST['grade']) ? $_POST['grade'] : '';
+$month = isset($_POST['month']) ? $_POST['month'] : date('m');  // Default to current month
+$year = isset($_POST['year']) ? $_POST['year'] : date('Y');  // Default to current year
 
-file_put_contents('debug.log', print_r($_GET, true), FILE_APPEND);
+error_log("Filters - Student ID: " . $studentID . ", Grade: " . $grade . ", Month: " . $month . ", Year: " . $year);
 
-//SQL QUERY
+// Initialize the base query
 $query = "
-    SELECT s.id, s.name, sa.status, sa.date
-    FROM students s
-    LEFT JOIN student_attendance sa ON s.id = sa.student_id
-    WHERE MONTH(sa.date) = ? AND YEAR(sa.date)= ?
-    ";
+    SELECT s.id AS student_id, s.name, s.grade, sa.status, sa.date
+    FROM student_attendance sa
+    INNER JOIN students s ON sa.student_id = s.id
+    WHERE MONTH(sa.date) = ? AND YEAR(sa.date) = ?
+";
 
-//adding conditions of filtering by grade and the ID if provided
-if ($selectedGrade){
-    $query .= " 
-    AND s.grade= ?";
+// Add conditions based on provided filters
+if (!empty($studentID)) {
+    $query .= " AND sa.student_id = ?";
 }
 
-if ($selectedStudentId){
-    $query .= " 
-    AND s.id = ?";
+if (!empty($grade)) {
+    $query .= " AND s.grade = ?";
 }
- 
-//prepare sql statement 
-/*the bind_param() function binds the variables to the SQL Query, it takes types of variables as first argument 
-and the actual variables as arguments listed after. It depends on whether the filters are provided.*/
+
+// Prepare SQL statement
 $stmt = $conn->prepare($query);
-if ($selectedGrade && $selectedStudentId){
-    $stmt->bind_param('iiis', $selectedMonth, $selectedYear, $selectedGrade, $selectedStudentId);
-}elseif($selectedGrade){
-    $stmt->bind_param('iis', $selectedMonth, $selectedYear, $selectedGrade);
-}elseif($selectedStudentId){
-    $stmt->bind_param('iis', $selectedMonth, $selectedYear, $selectedStudentId);
-}else {
-    $stmt->bind_param('ii', $selectedMonth, $selectedYear);
+
+// Bind parameters based on the filters
+if (!empty($studentID) && !empty($grade)) {
+    $stmt->bind_param('iiis', $month, $year, $grade, $studentID);
+} elseif (!empty($studentID)) {
+    $stmt->bind_param('iis', $month, $year, $studentID);
+} elseif (!empty($grade)) {
+    $stmt->bind_param('ii', $month, $year, $grade);
+} else {
+    $stmt->bind_param('ii', $month, $year);
 }
 
-//executing the query
+// Execute the query
 $stmt->execute();
-$attendanceData =[]; //array to store the attendance data
 $result = $stmt->get_result();
 
-//looping through the results to aggregate the attendance data
-while ($row = $result->fetch_assoc()) 
-{
-    $studentId = $row['id'];
+// Initialize an array to store attendance data
+$attendanceData = [];
+if ($result->num_rows > 0) {
+    // Loop through the results and process the attendance data
+    while ($row = $result->fetch_assoc()) {
+        $studentId = $row['student_id'];
 
-    //initialize the student data 
-    if (!isset($attendanceData[$studentId])){
-        $attendanceData[$studentId]=[
-            'name'=>$row['name'],
-            'totalp'=>0, //stores the total present
-            'totala'=>0, //stores the total absent
-            'perc'=>0,//stores attendance percentage
-            'abs_dates'=>[]//stores absence data
-        ];
+        // Initialize student data if it doesn't exist
+        if (!isset($attendanceData[$studentId])) {
+            $attendanceData[$studentId] = [
+                'name' => $row['name'],
+                'grade' => $row['grade'],
+                'totalPresent' => 0,
+                'totalAbsent' => 0,
+                'totalLate' => 0,
+                'attendancePercentage' => 0,
+                'absenceDates' => [],
+                'lateDates' => []
+            ];
+        }
+
+        // Increment counters for present, absent, or late
+        if ($row['status'] == 'present') {
+            $attendanceData[$studentId]['totalPresent']++;
+        } elseif ($row['status'] == 'absent') {
+            $attendanceData[$studentId]['totalAbsent']++;
+            $attendanceData[$studentId]['absenceDates'][] = $row['date'];
+        } elseif ($row['status'] == 'late') {
+            $attendanceData[$studentId]['totalLate']++;
+            $attendanceData[$studentId]['lateDates'][] = $row['date'];
+        }
     }
-
-    //increment present or absent count based on the status
-    if ($row['status']=='present'){
-        $attendanceData[$studentId]['totalp']++;
-    } else {
-        $attendanceData[$studentId]['totala']++;
-        $attendanceData[$studentId]['abs_dates'][]=$row['date'];
-    }
-
+} else {
+    error_log("No attendance data found for the provided filters.");
 }
 
-    //now handling the attendance percentage 
-    foreach($attendanceData as $studentId => &$summary){
-        //calculate attendance percentage
-        $totalDays = $summary['totalp']+ $summary['totala'];
-        $summary['perc']=($totalDays > 0)? ($summary['totalp']/$totalDays)*100: 0;
+// Calculate the attendance percentage for each student
+foreach ($attendanceData as $studentId => &$summary) {
+    // Total days attended (present + late) and total days (present + absent + late)
+    $totalDays = $summary['totalPresent'] + $summary['totalAbsent'] + $summary['totalLate'];
+    $summary['attendancePercentage'] = ($totalDays > 0) ? ($summary['totalPresent'] / $totalDays) * 100 : 0;
 
-        $absenceDates=$summary['abs_dates'];
-        sort($absenceDates); //Ensures the absence dates are sorted
- 
-    }
-    
-    //closing connection
-    $stmt->close();
-    $conn->close();
+    // Sort absence and late dates for display purposes (optional)
+    sort($summary['absenceDates']);
+    sort($summary['lateDates']);
+}
 
-    //return the report data as a JSON response 
-    header('Content-Type: application/json');
-    echo json_encode(array_values($attendanceData));
+// Close the database connection
+$stmt->close();
+$conn->close();
+
+// Return the attendance report as a JSON response
+header('Content-Type: application/json');
+echo json_encode(array_values($attendanceData));
 ?>
-
 
 

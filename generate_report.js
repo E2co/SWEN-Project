@@ -23,27 +23,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fetch the attendance report based on selected filters
+    // Fetch the attendance report based on selected filters (using POST)
     function fetchAttendanceReport(grade, studentId, month, year) {
-        const url = new URL("generate_report.php");  // URL of the PHP file that will generate the report
-        const params = {
+        const url = "generate_report.php";  // URL of the PHP file that will generate the report
+        const data = {
             grade: grade,
             student_id: studentId,
             month: month,
             year: year
         };
 
-         //adding parameters to the URL
-    url.search = new URLSearchParams(params).toString();
+        console.log("Request Data:", data);  // Debugging line to check the data being sent
 
-    fetch(url)
-            .then(response => response.json())  // Parse JSON response
-            .then(data => displayAttendanceReport(data))  // Call the function to display the report
-            .catch(error => console.error('Error fetching attendance report:', error));  // Error handling
-
+        fetch(url, {
+            method: 'POST',  // Change to POST method
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'  // Set the content type for POST
+            },
+            body: new URLSearchParams(data).toString()  // Convert the data to a URL-encoded string
+        })
+        .then(response => response.json())  // Parse the JSON response
+        .then(data => displayAttendanceReport(data))  // Call the function to display the report
+        .catch(error => console.error('Error fetching attendance report:', error));  // Error handling
     }
 
-   
     // Display the attendance report in a table
     function displayAttendanceReport(data) {
         const reportTable = document.getElementById("attendanceReportTable");
@@ -91,11 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Call function to fetch attendance report based on selected filters
         fetchAttendanceReport(grade, studentId, month, year);
-
     });
 
 });
-
 
 
 
