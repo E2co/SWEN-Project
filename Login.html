@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="">
     <link rel="stylesheet" href="login.css">                 
 </head>
+
 <body>
     <div class="login-container">
         <h2>Login</h2>
@@ -21,65 +23,67 @@
         </form>
     </div>
 </body>
+
 <header>
     <div class = "logo">
         <img src="logo-.png" alt="school logo">
     </div>
 </header>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const submitbutton = document.getElementById("submitButton");
-    const usernameInput = document.querySelector('input[name = "username"]');
-    const userpwdInput = document.querySelector('input[name = "password"]');
-    const errorContainer = document.getElementById("error-message");
-
-    submitbutton.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        if(errorContainer){
-            errorContainer.textContent = '';
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitbutton = document.getElementById("submitButton");
+        const usernameInput = document.querySelector('input[name = "username"]');
+        const userpwdInput = document.querySelector('input[name = "password"]');
+        const errorContainer = document.getElementById("error-message");
+    
+        submitbutton.addEventListener('click', function(event) {
+            event.preventDefault();
         
-        const username = usernameInput.value.trim();
-        const userpwd = userpwdInput.value.trim();
-
-        if(!username || !userpwd){
-            alert("Enter both username and password!!");
-            return;
-        }
-
-        fetch('login.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(userpwd)}`
-        })
-        .then(response => {
-            if(!response.ok){
-                throw new Error("Login failed");
+            if(errorContainer){
+                errorContainer.textContent = '';
             }
-            return response.json();
-        })
-        .then(data => {
-            if(data.success){
-                window.location.href = data.redirectUrl;
+            
+            const username = usernameInput.value.trim();
+            const userpwd = userpwdInput.value.trim();
+        
+            if(!username || !userpwd){
+                alert("Enter both username and password!!");
+                return;
+            }
+        
+            fetch('login.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(userpwd)}`
+            })
+            .then(response => {
+                if(!response.ok){
+                    throw new Error("Login failed");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if(data.success){
+                    window.location.href = data.redirectUrl;
+                } else{
+                    showError(data.message || "Incorrect username or password.");
+                }
+            })
+            .catch(error => {
+                console.error('Login error: ', error);
+                showError("An error occurred. Please try again.");
+            });
+        }); 
+    
+        function showError(message){
+            if(errorContainer){
+                errorContainer.textContent = message;
+                errorContainer.style.display = 'block';
             } else{
-                showError(data.message || "Incorrect username or password.");
+                alert(message);
             }
-        })
-        .catch(error => {
-            console.error('Login error: ', error);
-            showError("An error occurred. Please try again.");
-        });
-    }); 
-
-    function showError(message){
-        if(errorContainer){
-            errorContainer.textContent = message;
-            errorContainer.style.display = 'block';
-        } else{
-            alert(message);
         }
-    }
-});
+    });
 </script>
 </html>

@@ -22,5 +22,4 @@ function fetchAuditLogs() {
             console.error('Error fetching audit logs:', error);
         });
 }
-
 window.onload = fetchAuditLogs;

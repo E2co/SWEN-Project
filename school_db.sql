@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 02:40 PM
+-- Generation Time: Nov 29, 2024 at 03:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 DROP DATABASE IF EXISTS school_db;
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `parents_contact`
 --
-
 
 CREATE TABLE `parents_contact` (
   `student_id` int(11) UNSIGNED NOT NULL,
@@ -188,6 +187,28 @@ INSERT INTO `student_attendance` (`student_id`, `status`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_audit`
+--
+
+CREATE TABLE `student_audit` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `operation` varchar(20) NOT NULL,
+  `changed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_audit`
+--
+
+INSERT INTO `student_audit` (`id`, `student_id`, `operation`, `changed_at`) VALUES
+(1, 5001, 'updated', '2024-11-28 17:27:22'),
+(2, 5002, 'added', '2024-11-28 17:27:22'),
+(3, 5003, 'removed', '2024-11-28 17:27:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -232,6 +253,12 @@ ALTER TABLE `student_attendance`
   ADD PRIMARY KEY (`student_id`,`date`);
 
 --
+-- Indexes for table `student_audit`
+--
+ALTER TABLE `student_audit`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -255,31 +282,17 @@ ALTER TABLE `students`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5016;
 
 --
+-- AUTO_INCREMENT for table `student_audit`
+--
+ALTER TABLE `student_audit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
-
---
--- Table structure for table `audit`
---
-
-CREATE TABLE student_audit (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  student_id INT NOT NULL,
-  operation VARCHAR(20) NOT NULL, -- 'added' , 'added', 'removed'
-  changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
---
--- Dumping data for table `student_audit`
---
-
-INSERT INTO `student_audit` (`student_id`, `operation`) VALUES
-(5001, 'Updated'),
-(5002, 'Added'),
-(5003, 'Removed');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

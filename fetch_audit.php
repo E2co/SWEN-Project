@@ -1,5 +1,4 @@
 <?php
-
 header('Content-Type: application/json');
 
 $host = 'localhost';
@@ -20,3 +19,4 @@ $stmt = $pdo->query($query);
 $auditLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($auditLogs);
+?>

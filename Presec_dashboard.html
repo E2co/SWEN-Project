@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-    
-    <html lang="en">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +9,7 @@
         <link rel="stylesheet" href="presec_style.css">
                                         
     </head>
+
     <body>
         <div class = "container">
             <h2 class="title">Prefect & Security Dashboard</h2>
@@ -36,48 +36,48 @@
     </header>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const submitbutton = document.getElementById("submitButton");
-    const studentIDinput = document.querySelector('input[name = "studentId"]');
-    const studentNameinput = document.querySelector('input[name = "studentName"]');
-
-    submitbutton.addEventListener('click', function(event) {
-        event.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitbutton = document.getElementById("submitButton");
+        const studentIDinput = document.querySelector('input[name = "studentId"]');
+        const studentNameinput = document.querySelector('input[name = "studentName"]');
+    
+        submitbutton.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            const studentID = studentIDinput.value.trim();
         
-        const studentID = studentIDinput.value.trim();
-
-        if(!studentID){
-            alert("Please enter the student's ID");
-            return;
-        }
-
-        const attendanceData = {studentId: studentID};
-
-        fetch('presec_updt_attendance.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(attendanceData)
-        })
-        .then(response => {
-            if(!response.ok){
-                throw new Error("Failed to update attendance");
+            if(!studentID){
+                alert("Please enter the student's ID");
+                return;
             }
-            return response.json();
-        })
-        .then(data => {
-            if(data.success){
-                alert('Student attendance updated successfully!');
-                studentIDinput.value = '';
-                studentNameinput.value = '';
-            } else{
-                alert('Failed to record attendance: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error updating attendance: ', error);
-            alert('Failed to update attendance');
-        });
-    }); 
-});
+        
+            const attendanceData = {studentId: studentID};
+        
+            fetch('presec_updt_attendance.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(attendanceData)
+            })
+            .then(response => {
+                if(!response.ok){
+                    throw new Error("Failed to update attendance");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if(data.success){
+                    alert('Student attendance updated successfully!');
+                    studentIDinput.value = '';
+                    studentNameinput.value = '';
+                } else{
+                    alert('Failed to record attendance: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating attendance: ', error);
+                alert('Failed to update attendance');
+            });
+        }); 
+    });
 </script>
 </html>

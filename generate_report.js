@@ -1,4 +1,3 @@
-
     function populateStudentSelect(students) {
        
         const studentSelect = document.getElementById("studentId");

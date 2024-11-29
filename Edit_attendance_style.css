@@ -135,7 +135,7 @@ header .logo img {
   background-color: #295bc0;
 }
 
-.btn:disabled{
+.btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

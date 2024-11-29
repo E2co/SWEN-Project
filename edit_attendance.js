@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-        
             .then((students) => {
 
                 studentList.innerHTML = "";

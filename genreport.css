@@ -10,12 +10,12 @@
 .title{
   max-width: 600px;
   position: absolute;
-  top: 15%; /* Adjusted top to create space between title and the top */
+  top: 20%; 
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
   color: #4070F4;
-  margin-top: 0; /* Removed unnecessary negative margin */
+  margin-top: 0;
 }
 
 body {
@@ -25,7 +25,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   background-color: #EFEFEF;
-  padding-top: 70px;
+  padding: 125px;
 }
 
 header {
@@ -145,7 +145,6 @@ header .navbar ul li:hover > ul {
   background-color: #305f99;
 }
 
-
 .logout-form{
   margin-left: 1100px;
 }
@@ -163,7 +162,6 @@ header .navbar ul li:hover > ul {
 .logout-button:hover {
   background-color: #e30909;
 }
-
 
 .audit-log {
   width: 100%;

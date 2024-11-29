@@ -54,7 +54,6 @@ try {
     $auditStmt->execute([
         'student_id' => $student_id
     ]);
-    
 
     echo json_encode(['success' => true]);
 

@@ -1,5 +1,4 @@
 <?php
-
 function logging($event_type, $details){
     date_default_timezone_set('US/Eastern');
     $timestamp = date('D,Y-m-d h:i:s,a');

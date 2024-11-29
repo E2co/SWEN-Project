@@ -42,3 +42,15 @@
 [Thu,2024-11-28 11:44:05,pm] Access Attempt: User dean attempting to access dashboard
 [Thu,2024-11-28 11:44:05,pm] Access Attempt: User dean attempting to access dashboard
 [Thu,2024-11-28 11:45:28,pm] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 07:54:37,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 07:54:52,am] Access Attempt: User 876 attempting to access dashboard
+[Fri,2024-11-29 07:55:04,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 07:56:51,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 07:57:18,am] Access Attempt: User teacher attempting to access dashboard
+[Fri,2024-11-29 07:57:40,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 08:33:26,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 08:42:50,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 09:14:02,am] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 09:14:21,am] Access Attempt: User 123 attempting to access dashboard
+[Fri,2024-11-29 09:15:29,am] Access Attempt: User teacher attempting to access dashboard
+[Fri,2024-11-29 09:34:38,am] Access Attempt: User principal attempting to access dashboard
