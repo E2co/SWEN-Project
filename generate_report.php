@@ -44,11 +44,11 @@ $stmt = $conn->prepare($query);
 
 // Bind parameters based on the filters
 if (!empty($studentID) && !empty($grade)) {
-    $stmt->bind_param('iiis', $month, $year, $grade, $studentID);
+    $stmt->bind_param('iisi', $month, $year, $grade, $studentID);
 } elseif (!empty($studentID)) {
-    $stmt->bind_param('iis', $month, $year, $studentID);
+    $stmt->bind_param('isi', $month, $year, $studentID);
 } elseif (!empty($grade)) {
-    $stmt->bind_param('ii', $month, $year, $grade);
+    $stmt->bind_param('iis', $month, $year, $grade);
 } else {
     $stmt->bind_param('ii', $month, $year);
 }

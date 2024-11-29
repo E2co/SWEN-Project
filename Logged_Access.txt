@@ -62,3 +62,6 @@
 [Fri,2024-11-29 11:26:11,am] Access Attempt: User 123 attempting to access dashboard
 [Fri,2024-11-29 11:26:33,am] Access Attempt: User teacher attempting to access dashboard
 [Fri,2024-11-29 11:26:59,am] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 12:30:47,pm] Access Attempt: User principal attempting to access dashboard
+[Fri,2024-11-29 12:31:31,pm] Access Attempt: User dean attempting to access dashboard
+[Fri,2024-11-29 01:01:13,pm] Access Attempt: User principal attempting to access dashboard
